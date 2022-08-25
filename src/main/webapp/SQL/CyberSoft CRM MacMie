@@ -1,0 +1,82 @@
+create database CyberSoft_CRM_MacMie default character set utf8;
+use CyberSoft_CRM_MacMie;
+
+create table if not exists Role_CRM(
+	Role_ID int AUTO_INCREMENT,
+    Role_Name varchar(50) NOT NULL,
+    Role_Description varchar(100) NOT NULL,
+    PRIMARY KEY (Role_ID)
+);
+
+create table if not exists User_CRM(
+	User_ID int AUTO_INCREMENT,
+    User_Name varchar(50) NOT NULL,
+    User_Email varchar(100) NOT NULL,
+    User_Password varchar(50) NOT NULL,
+    PRIMARY KEY (User_ID),
+    
+    User_Role_ID int,
+    CONSTRAINT FK_RoleID_From_User_To_Role FOREIGN KEY (User_Role_ID) REFERENCES Role_CRM (Role_ID)
+);
+
+create table if not exists Project_CRM(
+	Project_ID int AUTO_INCREMENT,
+    Project_Name varchar(50) NOT NULL,
+    Project_Start_Date varchar(30),
+    Project_End_Date varchar(30),
+    PRIMARY KEY (Project_ID)
+);
+
+create table if not exists Assignment_CRM(
+	Assignment_ID int AUTO_INCREMENT,
+    Assignment_Name varchar(50) NOT NULL,
+    Assignment_Start_Date varchar(30),
+    Assignment_End_Date varchar(30),
+    Assignment_Status varchar(50) NOT NULL,
+    PRIMARY KEY (Assignment_ID),
+    
+    Assignment_Project_ID int,
+    Assignment_User_ID int,
+    CONSTRAINT FK_ProjectID_From_Assignment_To_Project FOREIGN KEY (Assignment_Project_ID) REFERENCES Project_CRM (Project_ID),
+    CONSTRAINT FK_UserID_From_Assignment_To_User FOREIGN KEY (Assignment_User_ID) REFERENCES User_CRM (User_ID)
+);
+
+insert into Role_CRM(Role_ID, Role_Name, Role_Description) values (1, "Admin", "Manage System");
+insert into Role_CRM(Role_ID, Role_Name, Role_Description) values (2, "Leader", "Bear Responsibilities for Projects");
+insert into Role_CRM(Role_ID, Role_Name, Role_Description) values (3, "Member", "Carry Out Tasks");
+
+insert into User_CRM(User_ID, User_Name, User_Email, User_Password, User_Role_ID) values (1, "Tran Hoang Anh", "hoanganh@gmail.com", "hoanganh", 3);
+insert into User_CRM(User_ID, User_Name, User_Email, User_Password, User_Role_ID) values (2, "Nguyen Xuan Bach", "xuanbach@gmail.com", "xuanbach", 3);
+insert into User_CRM(User_ID, User_Name, User_Email, User_Password, User_Role_ID) values (3, "Pham Huong Giang", "huonggiang@gmail.com", "huonggiang", 3);
+insert into User_CRM(User_ID, User_Name, User_Email, User_Password, User_Role_ID) values (4, "Vuong Hung Dung", "hungdung@gmail.com", "hungdung", 2);
+insert into User_CRM(User_ID, User_Name, User_Email, User_Password, User_Role_ID) values (5, "Tran Thi Thu Hoan", "thuhoan@gmail.com", "thuhoan", 2);
+insert into User_CRM(User_ID, User_Name, User_Email, User_Password, User_Role_ID) values (6, "Dinh Ba Phuong", "baphuong@gmail.com", "baphuong", 2);
+insert into User_CRM(User_ID, User_Name, User_Email, User_Password, User_Role_ID) values (7, "Tran Quoc Bao", "quocbao@gmail.com", "quocbao", 1);
+insert into User_CRM(User_ID, User_Name, User_Email, User_Password, User_Role_ID) values (8, "Le Minh Tien", "minhtien@gmail.com", "minhtien", 1);
+insert into User_CRM(User_ID, User_Name, User_Email, User_Password, User_Role_ID) values (9, "Nguyen Cong Binh", "congduc@gmail.com", "congduc", 1);
+insert into User_CRM(User_ID, User_Name, User_Email, User_Password, User_Role_ID) values (10, "Tran Quoc Toan", "quoctoan@gmail.com", "quoctoan", 1);
+insert into User_CRM(User_ID, User_Name, User_Email, User_Password, User_Role_ID) values (11, "Le Nhu Tien", "nhutien@gmail.com", "nhutien", 2);
+insert into User_CRM(User_ID, User_Name, User_Email, User_Password, User_Role_ID) values (12, "Cao Cong Minh", "congminh@gmail.com", "congminh", 1);
+
+insert into Project_CRM(Project_ID, Project_Name, Project_Start_Date, Project_End_Date) values (1, "Du An CRM", "01/07/2022", "30/10/2022");
+insert into Project_CRM(Project_ID, Project_Name, Project_Start_Date, Project_End_Date) values (2, "Du An Elearning", "01/04/2022", "25/06/2022");
+insert into Project_CRM(Project_ID, Project_Name, Project_Start_Date, Project_End_Date) values (3, "Du An Rap Chieu Phim", "01/01/2022", "25/03/2022");
+
+insert into Assignment_CRM(Assignment_ID, Assignment_Name, Assignment_Start_Date, Assignment_End_Date, Assignment_Status, Assignment_Project_ID, Assignment_User_ID) values (1, "Xay Dung Database", "01/07/2022", "01/08/2022", "Hoan Thanh", 1, 1);
+insert into Assignment_CRM(Assignment_ID, Assignment_Name, Assignment_Start_Date, Assignment_End_Date, Assignment_Status, Assignment_Project_ID, Assignment_User_ID) values (2, "Viet API", "02/08/2022", "20/09/2022", "Dang Xu Ly", 1, 4);
+insert into Assignment_CRM(Assignment_ID, Assignment_Name, Assignment_Start_Date, Assignment_End_Date, Assignment_Status, Assignment_Project_ID, Assignment_User_ID) values (3, "Xay Dung Database", "01/04/2022", "01/05/2022", "Hoan Thanh", 2, 2);
+insert into Assignment_CRM(Assignment_ID, Assignment_Name, Assignment_Start_Date, Assignment_End_Date, Assignment_Status, Assignment_Project_ID, Assignment_User_ID) values (4, "Lam Giao Dien", "02/05/2022", "01/06/2022", "Chua Bat Dau", 2, 5);
+insert into Assignment_CRM(Assignment_ID, Assignment_Name, Assignment_Start_Date, Assignment_End_Date, Assignment_Status, Assignment_Project_ID, Assignment_User_ID) values (5, "Xay Dung Database", "01/01/2022", "01/02/2022", "Hoan Thanh", 3, 3);
+insert into Assignment_CRM(Assignment_ID, Assignment_Name, Assignment_Start_Date, Assignment_End_Date, Assignment_Status, Assignment_Project_ID, Assignment_User_ID) values (6, "Viet API", "02/02/2022", "02/03/2022", "Dang Xu Ly", 3, 6);
+insert into Assignment_CRM(Assignment_ID, Assignment_Name, Assignment_Start_Date, Assignment_End_Date, Assignment_Status, Assignment_Project_ID, Assignment_User_ID) values (7, "Xay Dung Database 2", "01/07/2022", "01/08/2022", "Hoan Thanh", 1, 7);
+insert into Assignment_CRM(Assignment_ID, Assignment_Name, Assignment_Start_Date, Assignment_End_Date, Assignment_Status, Assignment_Project_ID, Assignment_User_ID) values (8, "Viet API 2", "02/08/2022", "20/09/2022", "Dang Xu Ly", 1, 8);
+insert into Assignment_CRM(Assignment_ID, Assignment_Name, Assignment_Start_Date, Assignment_End_Date, Assignment_Status, Assignment_Project_ID, Assignment_User_ID) values (9, "Xay Dung Database 3", "01/04/2022", "01/05/2022", "Hoan Thanh", 2, 9);
+insert into Assignment_CRM(Assignment_ID, Assignment_Name, Assignment_Start_Date, Assignment_End_Date, Assignment_Status, Assignment_Project_ID, Assignment_User_ID) values (10, "Lam Giao Dien 2", "02/05/2022", "01/06/2022", "Chua Bat Dau", 2, 10);
+insert into Assignment_CRM(Assignment_ID, Assignment_Name, Assignment_Start_Date, Assignment_End_Date, Assignment_Status, Assignment_Project_ID, Assignment_User_ID) values (11, "Xay Dung Database 4", "01/01/2022", "01/02/2022", "Hoan Thanh", 3, 11);
+insert into Assignment_CRM(Assignment_ID, Assignment_Name, Assignment_Start_Date, Assignment_End_Date, Assignment_Status, Assignment_Project_ID, Assignment_User_ID) values (12, "Viet API 3", "02/02/2022", "02/03/2022", "Dang Xu Ly", 3, 12);
+
+
+
+
+
+

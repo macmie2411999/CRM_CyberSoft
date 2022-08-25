@@ -1,0 +1,37 @@
+package com.macmie.crm_cybersoft.Service;
+
+import com.macmie.crm_cybersoft.Pojo.User_CRM;
+import com.macmie.crm_cybersoft.Repository.UserRepositoryInterface;
+
+public class UserService implements UserServiceInterface {
+    UserRepositoryInterface userRepositoryInterface;
+
+    // Constructor
+    public UserService(UserRepositoryInterface userRepositoryInterface) {
+        this.userRepositoryInterface = userRepositoryInterface;
+    }
+
+    // Return data of login user taken from UserRepository to UserController
+    @Override
+    public User_CRM getUserLogin(String email, String password) {
+        return userRepositoryInterface.getUserLogin(email, password);
+    }
+
+    @Override
+    public void addUser(User_CRM userCRM) {
+        userRepositoryInterface.addUser(userCRM);
+    }
+
+    @Override
+    public User_CRM getUserById(int ID) {
+
+        return userRepositoryInterface.getUserById(ID);
+    }
+
+    @Override
+    public void removeUserById(int ID) {
+        userRepositoryInterface.removeUserById(ID);
+    }
+
+
+}

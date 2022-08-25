@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="CRM_CyberSoft:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>CRM_CyberSoft</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="CRM_CyberSoft-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="CRM_CyberSoft:war exploded" />
+    </root>
+  </artifact>
+</component>
