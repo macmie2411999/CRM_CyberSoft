@@ -8,4 +8,5 @@ import java.util.List;
 public interface ProjectServiceInterface {
     List<Project_CRM> getAllProjects();
     void addNewProject(Project_CRM newProject);
+    void deleteProjectsByID(String projectID);
 }

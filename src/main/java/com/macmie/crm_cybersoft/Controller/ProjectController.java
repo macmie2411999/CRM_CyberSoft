@@ -5,14 +5,8 @@ import com.macmie.crm_cybersoft.DTO.ProjectAssignmentUser;
 import com.macmie.crm_cybersoft.Pojo.Assignment_CRM;
 import com.macmie.crm_cybersoft.Pojo.Project_CRM;
 import com.macmie.crm_cybersoft.Pojo.User_CRM;
-import com.macmie.crm_cybersoft.Repository.PAU_DTO_Repository;
-import com.macmie.crm_cybersoft.Repository.PAU_DTO_RepositoryInterface;
-import com.macmie.crm_cybersoft.Repository.ProjectRepository;
-import com.macmie.crm_cybersoft.Repository.ProjectRepositoryInterface;
-import com.macmie.crm_cybersoft.Service.PAU_DTO_Service;
-import com.macmie.crm_cybersoft.Service.PAU_DTO_ServiceInterface;
-import com.macmie.crm_cybersoft.Service.ProjectService;
-import com.macmie.crm_cybersoft.Service.ProjectServiceInterface;
+import com.macmie.crm_cybersoft.Repository.*;
+import com.macmie.crm_cybersoft.Service.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -74,6 +68,29 @@ public class ProjectController extends HttpServlet {
                 break;
 
             case Constants.URL_PROJECT_DELETE:
+
+                // Remove Assignment by ID using AssignmentServiceInterface
+                projectServiceInterface.deleteProjectsByID(request.getParameter(Constants.JUST_ID));
+
+//                int projectIDFlag = Integer.parseInt(request.getParameter("id"));
+//                listProjectAssignmentUser = pau_dto_serviceInterface.getAllProjectAssignmentUser();
+//                for(ProjectAssignmentUser element : listProjectAssignmentUser){
+//                    if(element.getAssignment_Project_ID() == projectIDFlag){
+//
+//                        // Can't delete
+//                        request.setAttribute(Constants.FLAG_UN_DELETABLE, "FALSE");
+//                    } else{
+//
+//                        // Deletable
+//                        request.setAttribute(Constants.FLAG_UN_DELETABLE, "TRUE");
+//                        projectServiceInterface.deleteProjectsByID(request.getParameter("id"));
+//                        break;
+//                    }
+//                }
+
+                // Set attributes and forward to View
+                request.setAttribute(Constants.LIST_PROJECTS, projectServiceInterface.getAllProjects());
+
                 request.getRequestDispatcher(Constants.PROJECT_JSP).forward(request, response);
                 break;
 

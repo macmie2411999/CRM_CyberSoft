@@ -16,6 +16,7 @@
     List<ProjectAssignmentUser> listProjectAssignmentUser = (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_PAU_DTO);
     List<Project_CRM> listProjects = (List<Project_CRM>) request.getAttribute(Constants.LIST_PROJECTS);
     List<User_CRM> listUsers = (List<User_CRM>) request.getAttribute(Constants.LIST_USERS);
+//    String flagDelete = (String) request.getAttribute(Constants.FLAG_UN_DELETABLE);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,6 +107,7 @@
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
                 </div>
             </div>

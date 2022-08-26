@@ -23,4 +23,9 @@ public class ProjectService implements ProjectServiceInterface {
     public void addNewProject(Project_CRM newProject) {
         projectRepositoryInterface.addNewProject(newProject);
     }
+
+    @Override
+    public void deleteProjectsByID(String projectID) {
+        projectRepositoryInterface.deleteProjectsByID(projectID);
+    }
 }

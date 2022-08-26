@@ -139,5 +139,6 @@ public class Constants {
     public static final String LOCALHOST = "http://localhost:8080";
     public static final String CONTEXT = "context";
     public static final String BEAN_PAU_DTO_REPOSITORY_INTERFACE = "pau_dto_repositoryInterface";
-
+    public static final String FLAG_UN_DELETABLE = "Un_deletable";
+    public static final String JUST_ID = "id";
 }

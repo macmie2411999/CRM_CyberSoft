@@ -62,4 +62,21 @@ public class ProjectRepository implements ProjectRepositoryInterface{
             System.out.println(Constants.ERROR_QUERY_DATA_FROM_MYSQL + e.getMessage());
         }
     }
+
+    @Override
+    public void deleteProjectsByID(String projectID) {
+        try {
+            String query = "DELETE FROM Project_CRM WHERE Project_ID = ?";
+            Connection connectionMySQL = MySQLConnectionConfiguration.getConnection();
+
+            PreparedStatement statement = connectionMySQL.prepareStatement(query);
+            statement.setString(1, projectID);
+
+            int resultSet = statement.executeUpdate();
+
+            connectionMySQL.close();
+        } catch (SQLException e) {
+            System.out.println(Constants.ERROR_QUERY_DATA_FROM_MYSQL + e.getMessage());
+        }
+    }
 }

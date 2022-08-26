@@ -65,6 +65,11 @@ public class AssignmentController extends HttpServlet {
         userRepositoryInterface = (UserRepositoryInterface) new UserRepository(listUsers);
         userServiceInterface = (UserServiceInterface) new UserService(userRepositoryInterface);
 
+        listAssignments = new ArrayList<Assignment_CRM>();
+        assignmentRepositoryInterface = (AssignmentRepositoryInterface) new AssignmentRepository( listAssignments);
+        assignmentServiceInterface = (AssignmentServiceInterface) new AssignmentService(assignmentRepositoryInterface);
+
+
         // Get URL to forward/direct page
         String servletPath = request.getServletPath();
 
@@ -99,8 +104,7 @@ public class AssignmentController extends HttpServlet {
             case Constants.URL_ASSIGNMENT_DELETE:
 
                 // Remove Assignment by ID using AssignmentServiceInterface
-                AssignmentRepositoryInterface assignmentRepositoryInterface = (AssignmentRepositoryInterface) new AssignmentRepository( new ArrayList<Assignment_CRM>());
-                AssignmentServiceInterface assignmentServiceInterface = (AssignmentServiceInterface) new AssignmentService(assignmentRepositoryInterface);
+
                 assignmentServiceInterface.deleteAssignmentsByID(request.getParameter("id"));
 
                 // Set attributes and forward to View
