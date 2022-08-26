@@ -7,9 +7,6 @@ public class Constants {
     public static final String USERNAME_MYSQL_JDBC = "root";
     public static final String PASSWORD_MYSQL_JDBC = "macmie";
 
-    // Local Host
-    public static final String LOCALHOST = "http://localhost:8080";
-
     // Paths of files JSP
     public static final String PNF_JSP = "/views/404.jsp";
     public static final String BLANK_JSP = "/views/blank.jsp";
@@ -64,6 +61,7 @@ public class Constants {
     // AssignmentController
     public static final String URL_ASSIGNMENT = "/assignment";
     public static final String URL_ASSIGNMENT_ADD = "/assignment/add";
+    public static final String URL_ASSIGNMENT_DELETE = "/assignment/delete";
 
     // ProfileController
     public static final String URL_PROFILE = "/profile";
@@ -76,6 +74,7 @@ public class Constants {
     // ProjectController
     public static final String URL_PROJECT = "/project";
     public static final String URL_PROJECT_ADD = "/project/add";
+    public static final String URL_PROJECT_DELETE = "/project/delete";
     public static final String URL_PROJECT_DETAILS = "/project/details";
 
     // Session's static attributes (not final)
@@ -107,8 +106,8 @@ public class Constants {
     public static final String PROJECT_CRM = "Project_CRM";
     public static final String PROJECT_CRM_ID = "Project_ID";
     public static final String PROJECT_CRM_NAME = "Project_Name";
-    public static final String PROJECT_START_DATE = "Project_Start_Date";
-    public static final String PROJECT_END_DATE = "Project_End_Date";
+    public static final String PROJECT_CRM_START_DATE = "Project_Start_Date";
+    public static final String PROJECT_CRM_END_DATE = "Project_End_Date";
 
     // Table Assignment_CRM
     public static final String ASSIGNMENT_CRM = "Assignment_CRM";
@@ -128,4 +127,17 @@ public class Constants {
     public static final String ERROR_QUERY_DATA_FROM_MYSQL = "Something Wrong With Query Database: ";
     public static final String SESSION_FAILED_LOGIN = "Email/Password is Invalid!";
     public static final String MESSAGE_LOGIN = "Message";
+
+    // Farrago
+    public static final String LIST_ASSIGNMENTS = "Session_List_Assignments";
+    public static final String LIST_USERS = "Session_List_Users";
+    public static final String LIST_ROLES = "Session_List_Roles";
+    public static final String LIST_PROJECTS = "Session_List_Projects";
+    public static final String LIST_AUR_DTO = "Session_List_AUR_DTO";
+    public static final String LIST_PAU_DTO = "Session_List_PAU_DTO";
+
+    public static final String LOCALHOST = "http://localhost:8080";
+    public static final String CONTEXT = "context";
+    public static final String BEAN_PAU_DTO_REPOSITORY_INTERFACE = "pau_dto_repositoryInterface";
+
 }

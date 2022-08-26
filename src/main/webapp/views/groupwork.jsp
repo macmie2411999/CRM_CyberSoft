@@ -1,4 +1,7 @@
-<%--
+<%@ page import="com.macmie.crm_cybersoft.DTO.ProjectAssignmentUser" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.macmie.crm_cybersoft.Constants.Constants" %>
+<%@ page import="com.macmie.crm_cybersoft.Pojo.Project_CRM" %><%--
   Created by IntelliJ IDEA.
   User: macmie
   Date: 17.08.2022
@@ -7,7 +10,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<% String contextPath = request.getContextPath(); %>
+<%
+    String contextPath = request.getContextPath();
+    List<Project_CRM> listProjects = (List<Project_CRM>) request.getAttribute(Constants.LIST_PROJECTS);
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +41,7 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
+
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -78,28 +85,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Phân tích dự án</td>
-                                    <td>22/05/2019</td>
-                                    <td>30/05/2019</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/project/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Thiết kế hệ thống</td>
-                                    <td>22/05/2019</td>
-                                    <td>30/05/2019</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/project/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
+
+                                <%for(Project_CRM element : listProjects){ %>
+                                    <tr>
+                                        <td><%= element.getProject_ID() %></td>
+                                        <td><%= element.getProject_Name() %></td>
+                                        <td><%= element.getProject_Start_Date() %></td>
+                                        <td><%= element.getProject_End_Date() %></td>
+                                        <td>
+<%--                                            <a href="<%= contextPath %>/project" class="btn btn-sm btn-primary">Sửa</a>--%>
+                                            <a href="<%= contextPath %>/project/delete?id=<%= element.getProject_ID() %>" class="btn btn-sm btn-danger">Xóa</a>
+                                            <a href="<%= contextPath %>/project/details?id=<%= element.getProject_ID() %>" class="btn btn-sm btn-info">Xem</a>
+                                        </td>
+                                    </tr>
+                                <%} %>
+
                                 </tbody>
                             </table>
                         </div>

@@ -21,8 +21,7 @@ import java.io.IOException;
         Constants.URL_LOGIN_1,
         Constants.URL_LOGIN_2})
 public class LoginController extends HttpServlet {
-    UserRepositoryInterface userRepositoryInterface = (UserRepositoryInterface) new UserRepository();
-    UserServiceInterface userServiceInterface = (UserServiceInterface) new UserService(userRepositoryInterface);
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,6 +31,9 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserRepositoryInterface userRepositoryInterface = (UserRepositoryInterface) new UserRepository();
+        UserServiceInterface userServiceInterface = (UserServiceInterface) new UserService(userRepositoryInterface);
+
         String email = request.getParameter(Constants.LOGIN_JSP_EMAIL);
         String password = request.getParameter(Constants.LOGIN_JSP_PASSWORD);
         User_CRM userLogin = userServiceInterface.getUserLogin(email, password);

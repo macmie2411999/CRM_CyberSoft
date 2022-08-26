@@ -3,6 +3,8 @@ package com.macmie.crm_cybersoft.Service;
 import com.macmie.crm_cybersoft.Pojo.User_CRM;
 import com.macmie.crm_cybersoft.Repository.UserRepositoryInterface;
 
+import java.util.List;
+
 public class UserService implements UserServiceInterface {
     UserRepositoryInterface userRepositoryInterface;
 
@@ -31,6 +33,11 @@ public class UserService implements UserServiceInterface {
     @Override
     public void removeUserById(int ID) {
         userRepositoryInterface.removeUserById(ID);
+    }
+
+    @Override
+    public List<User_CRM> getAllUsers() {
+        return userRepositoryInterface.getAllUsers();
     }
 
 

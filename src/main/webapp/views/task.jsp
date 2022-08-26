@@ -1,4 +1,8 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.macmie.crm_cybersoft.Pojo.Assignment_CRM" %>
+<%@ page import="com.macmie.crm_cybersoft.Constants.Constants" %>
+<%@ page import="com.macmie.crm_cybersoft.DTO.AssignmentUserRole" %>
+<%@ page import="com.macmie.crm_cybersoft.DTO.ProjectAssignmentUser" %><%--
   Created by IntelliJ IDEA.
   User: macmie
   Date: 17.08.2022
@@ -7,7 +11,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<% String contextPath = request.getContextPath(); %>
+<%
+    String contextPath = request.getContextPath();
+    List<ProjectAssignmentUser> listProjectAssignmentUser = (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_PAU_DTO);
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,7 +77,7 @@
                             <table class="table" id="example">
                                 <thead>
                                 <tr>
-                                    <th>STT</th>
+                                    <th>ID</th>
                                     <th>Tên Công Việc</th>
                                     <th>Dự Án</th>
                                     <th>Người Thực Hiện</th>
@@ -81,34 +88,23 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Phân tích dự án</td>
-                                    <td>Dự án CRM</td>
-                                    <td>Nguyễn Văn Tèo</td>
-                                    <td>22/05/2019</td>
-                                    <td>30/05/2019</td>
-                                    <td>Đã hoàn thành</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="#" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Thiết kế database</td>
-                                    <td>Dự án CRM</td>
-                                    <td>Trần Thị Lan</td>
-                                    <td>22/05/2019</td>
-                                    <td>30/05/2019</td>
-                                    <td>Đang thực hiện</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="#" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
+
+                                <%for(ProjectAssignmentUser element : listProjectAssignmentUser){ %>
+                                        <tr>
+                                            <td><%= element.getAssignment_ID() %></td>
+                                            <td><%= element.getAssignment_Name() %></td>
+                                            <td><%= element.getProject_Name() %></td>
+                                            <td><%= element.getUser_Name() %></td>
+                                            <td><%= element.getAssignment_Start_Date() %></td>
+                                            <td><%= element.getAssignment_End_Date() %></td>
+                                            <td><%= element.getAssignment_Status() %></td>
+                                            <td>
+        <%--                                        <a href="<%= contextPath %>/task/edit" class="btn btn-sm btn-primary">Sửa</a>--%>
+                                                <a href="<%= contextPath %>/assignment/delete?id=<%= element.getAssignment_ID() %>" class="btn btn-sm btn-danger">Xóa</a>
+                                            </td>
+                                        </tr>
+                                <%}%>
+
                                 </tbody>
                             </table>
                         </div>

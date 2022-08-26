@@ -6,8 +6,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.macmie.crm_cybersoft.Constants.Constants" %>
+<%@ page import="com.macmie.crm_cybersoft.DTO.ProjectAssignmentUser" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.macmie.crm_cybersoft.Pojo.Project_CRM" %>
+<%@ page import="com.macmie.crm_cybersoft.Pojo.User_CRM" %>
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<% String contextPath = request.getContextPath(); %>
+<%
+    String contextPath = request.getContextPath();
+    List<ProjectAssignmentUser> listProjectAssignmentUser = (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_PAU_DTO);
+    List<Project_CRM> listProjects = (List<Project_CRM>) request.getAttribute(Constants.LIST_PROJECTS);
+    List<User_CRM> listUsers = (List<User_CRM>) request.getAttribute(Constants.LIST_USERS);
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,14 +72,14 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
+                            <form class="form-horizontal form-material" method="POST" action="<%= contextPath + Constants.URL_ASSIGNMENT_ADD %>">
                                 <div class="form-group">
                                     <label class="col-md-12">Dự án</label>
                                     <div class="col-md-12">
-                                        <select class="form-control form-control-line">
-                                            <option>Dự án CRM</option>
-                                            <option>Dự án Elearning</option>
-                                            <option>Dự án Rạp chiếu phim</option>
+                                        <select class="form-control form-control-line" name= "<%= Constants.ASSIGNMENT_CRM_PROJECT_ID %>">
+                                            <%for(Project_CRM element : listProjects){%>
+                                                <option value="<%= element.getProject_ID()%>"><%= element.getProject_Name() %></option>
+                                            <%}%>
                                         </select>
                                     </div>
                                 </div>
@@ -77,16 +87,16 @@
                                     <label class="col-md-12">Tên công việc</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Tên công việc"
-                                               class="form-control form-control-line">
+                                               class="form-control form-control-line" name= "<%= Constants.ASSIGNMENT_CRM_NAME %>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Người thực hiện</label>
                                     <div class="col-md-12">
-                                        <select class="form-control form-control-line">
-                                            <option>Nguyễn Văn Tèo</option>
-                                            <option>Trần Thị Lan</option>
-                                            <option>Cao Ngọc Hiếu</option>
+                                        <select class="form-control form-control-line" name= "<%= Constants.ASSIGNMENT_CRM_USER_ID %>">
+                                            <%for(User_CRM element : listUsers){%>
+                                                <option value="<%= element.getUser_ID()%>"><%= element.getUser_Name() %></option>
+                                            <%}%>
                                         </select>
                                     </div>
                                 </div>
@@ -94,14 +104,14 @@
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="dd/MM/yyyy"
-                                               class="form-control form-control-line">
+                                               class="form-control form-control-line" name= "<%= Constants.ASSIGNMENT_CRM_START_DATE %>" >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="dd/MM/yyyy"
-                                               class="form-control form-control-line">
+                                               class="form-control form-control-line" name= "<%= Constants.ASSIGNMENT_CRM_END_DATE %>">
                                     </div>
                                 </div>
                                 <div class="form-group">

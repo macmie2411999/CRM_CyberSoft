@@ -13,26 +13,37 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(Constants.URL_HOME)
 public class HomeController extends HttpServlet {
-    AssignmentRepositoryInterface assignmentRepositoryInterface = (AssignmentRepositoryInterface) new AssignmentRepository();
-    AssignmentServiceInterface assignmentServiceInterface = (AssignmentServiceInterface) new AssignmentService(assignmentRepositoryInterface);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Assignment_CRM> listAssignments = new ArrayList<Assignment_CRM>();
+        AssignmentRepositoryInterface assignmentRepositoryInterface = (AssignmentRepositoryInterface) new AssignmentRepository(listAssignments);
+        AssignmentServiceInterface assignmentServiceInterface =
+                (AssignmentServiceInterface) new AssignmentService(assignmentRepositoryInterface);
 
         // Get lists of required assignments
-        List<Assignment_CRM> listCompletedAssignments = assignmentServiceInterface.getAllAssignmentsByName(Constants.ASSIGNMENT_COMPLETED);
-        List<Assignment_CRM> listProcessingAssignments = assignmentServiceInterface.getAllAssignmentsByName(Constants.ASSIGNMENT_PROCESSING);
-        List<Assignment_CRM> listStillAssignments = assignmentServiceInterface.getAllAssignmentsByName(Constants.ASSIGNMENT_STILL);
+        listAssignments = assignmentServiceInterface.getAllAssignments();
 
-        // Get number of assignments in each list
-        request.setAttribute(Constants.ASSIGNMENT_COMPLETED, listCompletedAssignments.size());
-        request.setAttribute(Constants.ASSIGNMENT_PROCESSING, listProcessingAssignments.size());
-        request.setAttribute(Constants.ASSIGNMENT_STILL, listStillAssignments.size());
+        // Save listAssignments to Session
+//        HttpSession session = request.getSession();
+//        session.setMaxInactiveInterval(10000);
+//        session.setAttribute(Constants.SESSION_LIST_ASSIGNMENTS, listAssignments);
+
+
+        // Get number of assignments in each list and set attributes to View
+        request.setAttribute(Constants.ASSIGNMENT_COMPLETED,
+                assignmentServiceInterface.getNumbersOfSelectedAssignments(listAssignments, Constants.ASSIGNMENT_COMPLETED));
+        request.setAttribute(Constants.ASSIGNMENT_PROCESSING,
+                assignmentServiceInterface.getNumbersOfSelectedAssignments(listAssignments, Constants.ASSIGNMENT_PROCESSING));
+        request.setAttribute(Constants.ASSIGNMENT_STILL,
+                assignmentServiceInterface.getNumbersOfSelectedAssignments(listAssignments, Constants.ASSIGNMENT_STILL));
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(Constants.HOME_JSP);
         dispatcher.forward(request, response);
