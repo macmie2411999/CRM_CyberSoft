@@ -14,7 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoleRepository implements RoleRepositoryInterface{
-    List<Role_CRM> listRoles = new ArrayList<Role_CRM>();
+    List<Role_CRM> listRoles;
+
+    public RoleRepository(List<Role_CRM> listRoles) {
+        this.listRoles = listRoles;
+    }
 
     @Override
     public List<Role_CRM> getAllRoles() {

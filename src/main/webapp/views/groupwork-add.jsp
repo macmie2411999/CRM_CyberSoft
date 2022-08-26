@@ -1,4 +1,8 @@
-<%--
+<%@ page import="com.macmie.crm_cybersoft.Pojo.Project_CRM" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.macmie.crm_cybersoft.Constants.Constants" %>
+<%@ page import="com.macmie.crm_cybersoft.DTO.ProjectAssignmentUser" %>
+<%@ page import="com.macmie.crm_cybersoft.Pojo.User_CRM" %><%--
   Created by IntelliJ IDEA.
   User: macmie
   Date: 17.08.2022
@@ -7,7 +11,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%	String contextPath = request.getContextPath(); %>
+<%
+    String contextPath = request.getContextPath();
+    List<ProjectAssignmentUser> listProjectAssignmentUser = (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_PAU_DTO);
+    List<Project_CRM> listProjects = (List<Project_CRM>) request.getAttribute(Constants.LIST_PROJECTS);
+    List<User_CRM> listUsers = (List<User_CRM>) request.getAttribute(Constants.LIST_USERS);
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,24 +70,24 @@
                 <div class="col-md-2 col-12"></div>
                 <div class="col-md-8 col-xs-12">
                     <div class="white-box">
-                        <form class="form-horizontal form-material">
+                        <form class="form-horizontal form-material" method="POST" action="<%= contextPath + Constants.URL_PROJECT_ADD %>">
                             <div class="form-group">
                                 <label class="col-md-12">Tên dự án</label>
                                 <div class="col-md-12">
                                     <input type="text" placeholder="Tên công việc"
-                                           class="form-control form-control-line"> </div>
+                                           class="form-control form-control-line" name= "<%= Constants.PROJECT_CRM_NAME %>">> </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12">Ngày bắt đầu</label>
                                 <div class="col-md-12">
                                     <input type="text" placeholder="dd/MM/yyyy"
-                                           class="form-control form-control-line"> </div>
+                                           class="form-control form-control-line" name= "<%= Constants.PROJECT_CRM_START_DATE %>">> </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12">Ngày kết thúc</label>
                                 <div class="col-md-12">
                                     <input type="text" placeholder="dd/MM/yyyy"
-                                           class="form-control form-control-line"> </div>
+                                           class="form-control form-control-line" name= "<%= Constants.PROJECT_CRM_END_DATE %>">> </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-12">

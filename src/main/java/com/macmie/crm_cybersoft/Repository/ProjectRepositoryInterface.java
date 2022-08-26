@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ProjectRepositoryInterface {
     List<Project_CRM> getAllProjects();
+    void addNewProject(Project_CRM newProject);
 }

@@ -18,4 +18,9 @@ public class ProjectService implements ProjectServiceInterface {
     public List<Project_CRM> getAllProjects() {
         return projectRepositoryInterface.getAllProjects();
     }
+
+    @Override
+    public void addNewProject(Project_CRM newProject) {
+        projectRepositoryInterface.addNewProject(newProject);
+    }
 }

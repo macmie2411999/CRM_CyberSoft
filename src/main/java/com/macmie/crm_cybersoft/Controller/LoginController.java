@@ -1,9 +1,16 @@
 package com.macmie.crm_cybersoft.Controller;
 
 import com.macmie.crm_cybersoft.Constants.Constants;
+import com.macmie.crm_cybersoft.DTO.ProjectAssignmentUser;
+import com.macmie.crm_cybersoft.Pojo.Assignment_CRM;
+import com.macmie.crm_cybersoft.Pojo.Project_CRM;
 import com.macmie.crm_cybersoft.Pojo.User_CRM;
+import com.macmie.crm_cybersoft.Repository.PAU_DTO_RepositoryInterface;
+import com.macmie.crm_cybersoft.Repository.ProjectRepositoryInterface;
 import com.macmie.crm_cybersoft.Repository.UserRepository;
 import com.macmie.crm_cybersoft.Repository.UserRepositoryInterface;
+import com.macmie.crm_cybersoft.Service.PAU_DTO_ServiceInterface;
+import com.macmie.crm_cybersoft.Service.ProjectServiceInterface;
 import com.macmie.crm_cybersoft.Service.UserService;
 import com.macmie.crm_cybersoft.Service.UserServiceInterface;
 
@@ -15,13 +22,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(urlPatterns = {
         Constants.URL_LOGIN,
         Constants.URL_LOGIN_1,
         Constants.URL_LOGIN_2})
 public class LoginController extends HttpServlet {
+    List<ProjectAssignmentUser> listProjectAssignmentUser;
+    PAU_DTO_RepositoryInterface pau_dto_repositoryInterface;
+    PAU_DTO_ServiceInterface pau_dto_serviceInterface;
 
+    UserRepositoryInterface userRepositoryInterface;
+    UserServiceInterface userServiceInterface;
+
+    List<Project_CRM> listProjects;
+    List<Assignment_CRM> listAssignments;
+    List<User_CRM> listUsers;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,8 +49,11 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserRepositoryInterface userRepositoryInterface = (UserRepositoryInterface) new UserRepository();
-        UserServiceInterface userServiceInterface = (UserServiceInterface) new UserService(userRepositoryInterface);
+
+        // New Obs
+        listUsers = new ArrayList<User_CRM>();
+        userRepositoryInterface = (UserRepositoryInterface) new UserRepository(listUsers);
+        userServiceInterface = (UserServiceInterface) new UserService(userRepositoryInterface);
 
         String email = request.getParameter(Constants.LOGIN_JSP_EMAIL);
         String password = request.getParameter(Constants.LOGIN_JSP_PASSWORD);

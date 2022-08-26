@@ -13,12 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectRepository implements ProjectRepositoryInterface{
-    List<Project_CRM> listProjects = new ArrayList<Project_CRM>();
+    List<Project_CRM> listProjects;
+
+    public ProjectRepository(List<Project_CRM> listProjects) {
+        this.listProjects = listProjects;
+    }
 
     @Override
     public List<Project_CRM> getAllProjects() {
         try {
-            String query = "SELECT * FROM Poject_CRM";
+            String query = "SELECT * FROM Project_CRM";
             Connection connectionMySQL = MySQLConnectionConfiguration.getConnection();
 
             PreparedStatement statement = connectionMySQL.prepareStatement(query);
@@ -38,5 +42,24 @@ public class ProjectRepository implements ProjectRepositoryInterface{
             System.out.println(Constants.ERROR_QUERY_DATA_FROM_MYSQL + e.getMessage());
         }
         return listProjects;
+    }
+
+    @Override
+    public void addNewProject(Project_CRM newProject) {
+        try {
+            String query = "INSERT INTO Project_CRM (Project_Name, Project_Start_Date, Project_End_Date) VALUES (?, ?, ?)";
+            Connection connectionMySQL = MySQLConnectionConfiguration.getConnection();
+
+            PreparedStatement statement = connectionMySQL.prepareStatement(query);
+            statement.setString(1, newProject.getProject_Name());
+            statement.setString(2, newProject.getProject_Start_Date());
+            statement.setString(3, newProject.getProject_End_Date());
+
+            int resultSet = statement.executeUpdate();
+
+            connectionMySQL.close();
+        } catch (SQLException e) {
+            System.out.println(Constants.ERROR_QUERY_DATA_FROM_MYSQL + e.getMessage());
+        }
     }
 }

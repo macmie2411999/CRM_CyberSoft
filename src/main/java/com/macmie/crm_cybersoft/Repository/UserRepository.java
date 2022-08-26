@@ -14,10 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository implements UserRepositoryInterface {
-    List<User_CRM> listUsers = new ArrayList<User_CRM>();
+    List<User_CRM> listUsers;
+
+    public UserRepository(List<User_CRM> listUsers) {
+        this.listUsers = listUsers;
+    }
 
     // Query data of user login from Database and return to UserService
-
     @Override
     public User_CRM getUserLogin(String email, String password) {
         try {

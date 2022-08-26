@@ -46,7 +46,7 @@ public class PAU_DTO_Service implements PAU_DTO_ServiceInterface {
 
         // Sort out duplicate elements
         Set<Project_CRM> listProjectsTempt = listProjects.stream()
-                .collect(Collectors.toCollection(() -> new TreeSet<Project_CRM>(Comparator.comparing(Project_CRM::getProject_ID))));
+                .collect(Collectors.toCollection(() -> new TreeSet<Project_CRM>(Comparator.comparing(Project_CRM::getProject_Name))));
         List<Project_CRM> listProjectsFinal = new ArrayList<>(listProjectsTempt);
 
         // Sort elements by ID
@@ -54,7 +54,7 @@ public class PAU_DTO_Service implements PAU_DTO_ServiceInterface {
             return firstProject.getProject_ID() > secondProject.getProject_ID() ? 1 : -1;
         });
 
-        // System.out.println("So phan tu: " + listProjectsTempt.size());
+         System.out.println("So phan tu: " + listProjectsTempt.size());
 
         return listProjectsFinal;
     }

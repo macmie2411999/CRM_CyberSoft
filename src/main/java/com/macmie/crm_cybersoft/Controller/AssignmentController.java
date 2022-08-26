@@ -39,6 +39,12 @@ public class AssignmentController extends HttpServlet {
     AssignmentRepositoryInterface assignmentRepositoryInterface;
     AssignmentServiceInterface assignmentServiceInterface;
 
+    ProjectRepositoryInterface projectRepositoryInterface;
+    ProjectServiceInterface projectServiceInterface;
+
+    UserRepositoryInterface userRepositoryInterface;
+    UserServiceInterface userServiceInterface;
+
     List<Project_CRM> listProjects;
     List<Assignment_CRM> listAssignments;
     List<User_CRM> listUsers;
@@ -50,6 +56,14 @@ public class AssignmentController extends HttpServlet {
         listProjectAssignmentUser = new ArrayList<ProjectAssignmentUser>();
         pau_dto_repositoryInterface = (PAU_DTO_RepositoryInterface) new PAU_DTO_Repository(listProjectAssignmentUser);
         pau_dto_serviceInterface = (PAU_DTO_ServiceInterface) new PAU_DTO_Service(pau_dto_repositoryInterface);
+
+        listProjects = new ArrayList<Project_CRM>();
+        projectRepositoryInterface = (ProjectRepositoryInterface) new ProjectRepository(listProjects);
+        projectServiceInterface = (ProjectServiceInterface) new ProjectService(projectRepositoryInterface);
+
+        listUsers = new ArrayList<User_CRM>();
+        userRepositoryInterface = (UserRepositoryInterface) new UserRepository(listUsers);
+        userServiceInterface = (UserServiceInterface) new UserService(userRepositoryInterface);
 
         // Get URL to forward/direct page
         String servletPath = request.getServletPath();
@@ -76,8 +90,8 @@ public class AssignmentController extends HttpServlet {
 
                 // Set attributes and forward to View
                 request.setAttribute(Constants.LIST_PAU_DTO, pau_dto_serviceInterface.getAllProjectAssignmentUser());
-                request.setAttribute(Constants.LIST_PROJECTS, pau_dto_serviceInterface.getAllProjects());
-                request.setAttribute(Constants.LIST_USERS, pau_dto_serviceInterface.getAllUsers());
+                request.setAttribute(Constants.LIST_PROJECTS, projectServiceInterface.getAllProjects());
+                request.setAttribute(Constants.LIST_USERS, userServiceInterface.getAllUsers());
 
                 request.getRequestDispatcher(Constants.ASSIGNMENT_ADD_JSP).forward(request, response);
                 break;
@@ -105,6 +119,7 @@ public class AssignmentController extends HttpServlet {
 //        pau_dto_repositoryInterface = (PAU_DTO_RepositoryInterface) new PAU_DTO_Repository(listProjectAssignmentUser);
 //        pau_dto_serviceInterface = (PAU_DTO_ServiceInterface) new PAU_DTO_Service(pau_dto_repositoryInterface);
 
+        // New Obs
         listAssignments = new ArrayList<Assignment_CRM>();
         assignmentRepositoryInterface = (AssignmentRepositoryInterface) new AssignmentRepository(listAssignments);
         assignmentServiceInterface = (AssignmentServiceInterface) new AssignmentService(assignmentRepositoryInterface);
