@@ -28,4 +28,9 @@ public class ProjectService implements ProjectServiceInterface {
     public void deleteProjectsByID(String projectID) {
         projectRepositoryInterface.deleteProjectsByID(projectID);
     }
+
+    @Override
+    public Project_CRM getProjectByID(String projectID) {
+        return projectRepositoryInterface.getProjectByID(projectID);
+    }
 }

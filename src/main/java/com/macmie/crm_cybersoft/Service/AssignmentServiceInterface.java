@@ -11,6 +11,7 @@ public interface AssignmentServiceInterface {
     List<Assignment_CRM> getAllAssignmentsByStatus(List<Assignment_CRM> listAssignmentsCRM, String assignmentStatus);
     List<Assignment_CRM> getAllAssignmentsByUserID(List<Assignment_CRM> listAssignmentsCRM, Integer userID);
     List<Assignment_CRM> getAllAssignmentsByUserID(String userID);
+    List<Assignment_CRM> getAllAssignmentsByProjectID(String projectID);
     void deleteAssignmentsByID(String assignmentID);
     void addNewAssignment(Assignment_CRM newAssignment);
 }

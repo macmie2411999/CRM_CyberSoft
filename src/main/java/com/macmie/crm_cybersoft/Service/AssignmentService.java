@@ -71,6 +71,11 @@ public class AssignmentService implements AssignmentServiceInterface {
     }
 
     @Override
+    public List<Assignment_CRM> getAllAssignmentsByProjectID(String projectID) {
+        return assignmentRepositoryInterface.getAllAssignmentsByProjectID(projectID);
+    }
+
+    @Override
     public void deleteAssignmentsByID(String assignmentID) {
         assignmentRepositoryInterface.deleteAssignmentsByID(assignmentID);
     }

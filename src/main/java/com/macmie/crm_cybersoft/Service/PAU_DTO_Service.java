@@ -123,4 +123,26 @@ public class PAU_DTO_Service implements PAU_DTO_ServiceInterface {
 
         return listUsersFinal;
     }
+
+    @Override
+    public List<ProjectAssignmentUser> getAll_PAU_By_ProjectID(List<ProjectAssignmentUser> listPAU, String projectID) {
+        List<ProjectAssignmentUser> listPAUFinal = new ArrayList<ProjectAssignmentUser>();
+        for(ProjectAssignmentUser element : listPAU){
+            if((element.getAssignment_Project_ID() + "").equals(projectID)){
+                listPAUFinal.add(element);
+            }
+        }
+        return listPAUFinal;
+    }
+
+    @Override
+    public List<ProjectAssignmentUser> getAll_PAU_By_statusAssignment(List<ProjectAssignmentUser> listPAU, String statusAssignment) {
+        List<ProjectAssignmentUser> listPAUFinal = new ArrayList<ProjectAssignmentUser>();
+        for(ProjectAssignmentUser element : listPAU){
+            if(element.getAssignment_Status().equals(statusAssignment)){
+                listPAUFinal.add(element);
+            }
+        }
+        return listPAUFinal;
+    }
 }

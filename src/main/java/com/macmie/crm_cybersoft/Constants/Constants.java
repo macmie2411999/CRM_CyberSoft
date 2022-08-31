@@ -145,7 +145,10 @@ public class Constants {
     public static final String JUST_ID = "id";
 
     public static final String SELECTED_USE = "Selected_User";
+    public static final String SELECTED_PROJECT = "Selected_User";
     public static final String LIST_USER_ASSIGNMENTS = "List_User_Assignments";
+    public static final String LIST_ASSIGNMENTS_PROJECT = "List_Assignments_Project";
+    public static final String LIST_PAU_PROJECT = "List_PAU_Project";
     public static final String LIST_COMPLETED_ASSIGNMENTS = "List_Completed_Assignments";
     public static final String LIST_PROCESSING_ASSIGNMENTS = "List_Processing_Assignments";
     public static final String LIST_STILL_ASSIGNMENTS = "List_Still_Assignments";

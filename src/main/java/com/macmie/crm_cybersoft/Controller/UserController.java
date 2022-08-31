@@ -99,6 +99,7 @@ public class UserController extends HttpServlet {
                 System.out.println("Assignment of User: " + listAssignmentsOfSelectedUser.size());
 
                 // Set attributes and forward to View
+                // Check if user have any assignments
                 if(listAssignmentsOfSelectedUser.size()==0){
                     System.out.println("User have no Assignments");
                     response.sendRedirect(request.getContextPath() + Constants.URL_USER);

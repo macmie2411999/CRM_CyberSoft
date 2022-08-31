@@ -1,4 +1,8 @@
-<%--
+<%@ page import="com.macmie.crm_cybersoft.Pojo.Project_CRM" %>
+<%@ page import="com.macmie.crm_cybersoft.Constants.Constants" %>
+<%@ page import="com.macmie.crm_cybersoft.Pojo.Assignment_CRM" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.macmie.crm_cybersoft.DTO.ProjectAssignmentUser" %><%--
   Created by IntelliJ IDEA.
   User: macmie
   Date: 17.08.2022
@@ -7,7 +11,29 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%	String contextPath = request.getContextPath(); %>
+<%
+    String contextPath = request.getContextPath();
+    Project_CRM user = (Project_CRM) request.getAttribute(Constants.SELECTED_PROJECT);
+    List<ProjectAssignmentUser> listAll_PAU = (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_PAU_PROJECT);
+    List<ProjectAssignmentUser> listCompleted_PAU = (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_COMPLETED_ASSIGNMENTS);
+    List<ProjectAssignmentUser> listProcessing_PAU= (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_PROCESSING_ASSIGNMENTS);
+    List<ProjectAssignmentUser> listStill_PAU = (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_STILL_ASSIGNMENTS);
+    Integer numberAll_PAU = listAll_PAU.size();
+    Integer numberCompleted_PAU = listCompleted_PAU.size();
+    Integer numberProcessing_PAU = listProcessing_PAU.size();
+    Integer numberStill_PAU = listStill_PAU.size();
+    Integer Completed_PAU_Percentage=0;
+    Integer Processing_PAU_Percentage=0;
+    Integer Still_PAU_Percentage=0;
+
+    if(numberAll_PAU!=0){
+        Completed_PAU_Percentage = numberCompleted_PAU*100/numberAll_PAU;
+        Processing_PAU_Percentage = numberProcessing_PAU*100/numberAll_PAU;
+        Still_PAU_Percentage = numberStill_PAU*100/numberAll_PAU;
+    } else{
+
+    }
+%>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -83,7 +109,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <h5 class="text-muted vb">CHƯA BẮT ĐẦU</h5>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                <h3 class="counter text-right m-t-15 text-danger">20%</h3>
+                                <h3 class="counter text-right m-t-15 text-danger"><%= Still_PAU_Percentage %>%</h3>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="progress">
@@ -105,7 +131,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <h5 class="text-muted vb">ĐANG THỰC HIỆN</h5>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                <h3 class="counter text-right m-t-15 text-megna">50%</h3>
+                                <h3 class="counter text-right m-t-15 text-megna"><%= Processing_PAU_Percentage %>%</h3>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="progress">
@@ -127,7 +153,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <h5 class="text-muted vb">HOÀN THÀNH</h5>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                <h3 class="counter text-right m-t-15 text-primary">30%</h3>
+                                <h3 class="counter text-right m-t-15 text-primary"><%= Completed_PAU_Percentage %>%</h3>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="progress">
@@ -144,29 +170,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- END THỐNG KÊ -->
 
             <!-- BEGIN DANH SÁCH CÔNG VIỆC -->
+            <%
+                for (ProjectAssignmentUser elementAll_PAU : listAll_PAU){
+            %>
             <div class="row">
                 <div class="col-xs-12">
                     <a href="#" class="group-title">
                         <img width="30" src="<%= contextPath %>/assets/plugins/images/users/pawandeep.jpg" class="img-circle" />
-                        <span>Pavan kumar</span>
+                        <span><%= elementAll_PAU.getUser_Name() %></span>
                     </a>
                 </div>
                 <div class="col-md-4">
                     <div class="white-box">
                         <h3 class="box-title">Chưa thực hiện</h3>
                         <div class="message-center">
+                            <%
+                                for (ProjectAssignmentUser elementStill_PAU : listStill_PAU){
+                                    if (elementStill_PAU.getUser_Name().equals(elementAll_PAU.getUser_Name())) {
+                            %>
                             <a href="#">
                                 <div class="mail-contnet">
-                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                        class="time">9:30 AM</span>
+                                    <h5><%= elementStill_PAU.getAssignment_Name() %></h5>
+                                    <span class="mail-desc"></span>
+                                    <span class="time">Tên Công Việc: <%= elementStill_PAU.getAssignment_Name() %></span>
+                                    <span class="time">Bắt đầu: <%= elementStill_PAU.getAssignment_Start_Date() %></span>
+                                    <span class="time">Kết thúc: <%= elementStill_PAU.getAssignment_End_Date() %></span>
                                 </div>
                             </a>
-                            <a href="#">
-                                <div class="mail-contnet">
-                                    <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                    <span class="time">9:10 AM</span>
-                                </div>
-                            </a>
+                            <%
+                                    }
+                                }
+                            %>
                         </div>
                     </div>
                 </div>
@@ -174,18 +208,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="white-box">
                         <h3 class="box-title">Đang thực hiện</h3>
                         <div class="message-center">
+                            <%
+                                for (ProjectAssignmentUser elementProcessing_PAU : listProcessing_PAU){
+                                    if (elementProcessing_PAU.getUser_Name().equals(elementAll_PAU.getUser_Name())) {
+                            %>
                             <a href="#">
                                 <div class="mail-contnet">
-                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                        class="time">9:30 AM</span>
+                                    <h5><%= elementProcessing_PAU.getAssignment_Name() %></h5>
+                                    <span class="mail-desc"></span>
+                                    <span class="time">Tên Công Việc: <%= elementProcessing_PAU.getAssignment_Name() %></span>
+                                    <span class="time">Bắt đầu: <%= elementProcessing_PAU.getAssignment_Start_Date() %></span>
+                                    <span class="time">Kết thúc: <%= elementProcessing_PAU.getAssignment_End_Date() %></span>
                                 </div>
                             </a>
-                            <a href="#">
-                                <div class="mail-contnet">
-                                    <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                    <span class="time">9:10 AM</span>
-                                </div>
-                            </a>
+                            <%
+                                    }
+                                }
+                            %>
                         </div>
                     </div>
                 </div>
@@ -193,87 +232,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="white-box">
                         <h3 class="box-title">Đã hoàn thành</h3>
                         <div class="message-center">
+                            <%
+                                for (ProjectAssignmentUser elementCompleted_PAU : listCompleted_PAU){
+                                    if (elementCompleted_PAU.getUser_Name().equals(elementAll_PAU.getUser_Name())) {
+                            %>
                             <a href="#">
                                 <div class="mail-contnet">
-                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                        class="time">9:30 AM</span>
+                                    <h5><%= elementCompleted_PAU.getAssignment_Name() %></h5>
+                                    <span class="mail-desc"></span>
+                                    <span class="time">Tên Công Việc: <%= elementCompleted_PAU.getAssignment_Name() %></span>
+                                    <span class="time">Bắt đầu: <%= elementCompleted_PAU.getAssignment_Start_Date() %></span>
+                                    <span class="time">Kết thúc: <%= elementCompleted_PAU.getAssignment_End_Date() %></span>
                                 </div>
                             </a>
-                            <a href="#">
-                                <div class="mail-contnet">
-                                    <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                    <span class="time">9:10 AM</span>
-                                </div>
-                            </a>
+                            <%
+                                    }
+                                }
+                            %>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <a href="#" class="group-title">
-                        <img width="30" src="../assets/plugins/images/users/pawandeep.jpg" class="img-circle" />
-                        <span>Pavan kumar</span>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <div class="white-box">
-                        <h3 class="box-title">Chưa thực hiện</h3>
-                        <div class="message-center">
-                            <a href="#">
-                                <div class="mail-contnet">
-                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                        class="time">9:30 AM</span>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="mail-contnet">
-                                    <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                    <span class="time">9:10 AM</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="white-box">
-                        <h3 class="box-title">Đang thực hiện</h3>
-                        <div class="message-center">
-                            <a href="#">
-                                <div class="mail-contnet">
-                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                        class="time">9:30 AM</span>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="mail-contnet">
-                                    <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                    <span class="time">9:10 AM</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="white-box">
-                        <h3 class="box-title">Đã hoàn thành</h3>
-                        <div class="message-center">
-                            <a href="#">
-                                <div class="mail-contnet">
-                                    <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                        class="time">9:30 AM</span>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="mail-contnet">
-                                    <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                    <span class="time">9:10 AM</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <%
+                }
+            %>
             <!-- END DANH SÁCH CÔNG VIỆC -->
         </div>
         <!-- /.container-fluid -->

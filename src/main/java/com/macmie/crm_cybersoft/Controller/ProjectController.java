@@ -30,6 +30,10 @@ public class ProjectController extends HttpServlet {
     ProjectRepositoryInterface projectRepositoryInterface;
     ProjectServiceInterface projectServiceInterface;
 
+    AssignmentRepositoryInterface assignmentRepositoryInterface;
+    AssignmentServiceInterface assignmentServiceInterface;
+
+    List<ProjectAssignmentUser> listPAUTemp1;
     List<Project_CRM> listProjects;
     List<Assignment_CRM> listAssignments;
     List<User_CRM> listUsers;
@@ -42,10 +46,15 @@ public class ProjectController extends HttpServlet {
         pau_dto_repositoryInterface = (PAU_DTO_RepositoryInterface) new PAU_DTO_Repository(listProjectAssignmentUser);
         pau_dto_serviceInterface = (PAU_DTO_ServiceInterface) new PAU_DTO_Service(pau_dto_repositoryInterface);
 
+        listAssignments = new ArrayList<Assignment_CRM>();
+        assignmentRepositoryInterface = (AssignmentRepositoryInterface) new AssignmentRepository( listAssignments);
+        assignmentServiceInterface = (AssignmentServiceInterface) new AssignmentService(assignmentRepositoryInterface);
+
         listProjects = new ArrayList<Project_CRM>();
         projectRepositoryInterface = (ProjectRepositoryInterface) new ProjectRepository(listProjects);
         projectServiceInterface = (ProjectServiceInterface) new ProjectService(projectRepositoryInterface);
 
+        String projectID;
         // Get URL to forward/direct page
         String servletPath = request.getServletPath();
 
@@ -96,7 +105,30 @@ public class ProjectController extends HttpServlet {
                 break;
 
             case Constants.URL_PROJECT_DETAILS:
-                request.getRequestDispatcher(Constants.PROJECT_DETAILS_JSP).forward(request, response);
+
+                // Get User ID from request
+                projectID = request.getParameter(Constants.JUST_ID);
+                System.out.println("ID Project: " + projectID);
+
+                // Get all assignments of selected project
+                List<ProjectAssignmentUser> list_PAU_Temp = pau_dto_serviceInterface.getAllProjectAssignmentUser();
+                List<ProjectAssignmentUser> list_PAU_Final = pau_dto_serviceInterface.getAll_PAU_By_ProjectID(list_PAU_Temp, projectID);
+                System.out.println("PAU of Project: " + list_PAU_Final.size());
+
+                // Set attributes and forward to View
+                // Check if user have any assignments
+                if(list_PAU_Final.size()==0){
+                    System.out.println("Project have no PAU/Assignment");
+                    response.sendRedirect(request.getContextPath() + Constants.URL_PROJECT);
+                } else{
+                    request.setAttribute(Constants.SELECTED_PROJECT, projectServiceInterface.getProjectByID(String.valueOf(projectID)));
+                    request.setAttribute(Constants.LIST_PAU_PROJECT, list_PAU_Final);
+                    request.setAttribute(Constants.LIST_COMPLETED_ASSIGNMENTS, pau_dto_serviceInterface.getAll_PAU_By_statusAssignment(list_PAU_Final, Constants.ASSIGNMENT_COMPLETED));
+                    request.setAttribute(Constants.LIST_PROCESSING_ASSIGNMENTS, pau_dto_serviceInterface.getAll_PAU_By_statusAssignment(list_PAU_Final, Constants.ASSIGNMENT_PROCESSING));
+                    request.setAttribute(Constants.LIST_STILL_ASSIGNMENTS, pau_dto_serviceInterface.getAll_PAU_By_statusAssignment(list_PAU_Final, Constants.ASSIGNMENT_STILL));
+                    request.getRequestDispatcher(Constants.PROJECT_DETAILS_JSP).forward(request, response);
+//                    response.sendRedirect(request.getContextPath() + Constants.USER_DETAILS_JSP);
+                }
                 break;
 
             default:
@@ -130,10 +162,6 @@ public class ProjectController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + Constants.URL_PROJECT);
 
                 break;
-
-//            case Constants.URL_PROJECT_DETAILS:
-//                request.getRequestDispatcher(Constants.PROJECT_DETAILS_JSP).forward(request, response);
-//                break;
 
             default:
                 break;
