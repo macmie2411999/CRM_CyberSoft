@@ -69,7 +69,7 @@
                     <h4 class="page-title">Danh sách dự án</h4>
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-                    <a href="<%= contextPath %>/project/add" class="btn btn-sm btn-success">Thêm mới</a>
+                    <a href="<%= contextPath %><%= Constants.URL_PROJECT_ADD %>" class="btn btn-sm btn-success">Thêm mới</a>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -98,8 +98,8 @@
                                         <td><%= element.getProject_End_Date() %></td>
                                         <td>
 <%--                                            <a href="<%= contextPath %>/project" class="btn btn-sm btn-primary">Sửa</a>--%>
-                                            <a href="<%= contextPath %>/project/delete?id=<%= element.getProject_ID() %>" class="btn btn-sm btn-danger">Xóa</a>
-                                            <a href="<%= contextPath %>/project/details?id=<%= element.getProject_ID() %>" class="btn btn-sm btn-info">Xem</a>
+                                            <a href="<%= contextPath %><%= Constants.URL_PROJECT_DELETE %>?id=<%= element.getProject_ID() %>" class="btn btn-sm btn-danger">Xóa</a>
+                                            <a href="<%= contextPath %><%= Constants.URL_PROJECT_DETAILS %>?id=<%= element.getProject_ID() %>" class="btn btn-sm btn-info">Xem</a>
                                         </td>
                                     </tr>
                                 <%} %>

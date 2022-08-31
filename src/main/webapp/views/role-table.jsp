@@ -1,4 +1,6 @@
-<%--
+<%@ page import="com.macmie.crm_cybersoft.Pojo.Role_CRM" %>
+<%@ page import="com.macmie.crm_cybersoft.Constants.Constants" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: macmie
   Date: 17.08.2022
@@ -7,7 +9,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%	String contextPath = request.getContextPath(); %>
+
+<%
+    String contextPath = request.getContextPath();
+    List<Role_CRM> listRoles = (List<Role_CRM>) request.getAttribute(Constants.LIST_ROLES);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +64,7 @@
                     <h4 class="page-title">Danh sách quyền</h4>
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-                    <a href="<%= contextPath %>/role/add" class="btn btn-sm btn-success">Thêm mới</a>
+                    <a href="<%= contextPath %><%= Constants.URL_ROLE_ADD %>" class="btn btn-sm btn-success">Thêm mới</a>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -75,26 +82,23 @@
                                     <th>Hành Động</th>
                                 </tr>
                                 </thead>
+
                                 <tbody>
+                                <%for(Role_CRM element : listRoles){ %>
                                 <tr>
-                                    <td>1</td>
-                                    <td>ROLE_ADMIN</td>
-                                    <td>Quản trị hệ thống</td>
+                                    <td><%= element.getRole_ID() %></td>
+                                    <td><%= element.getRole_Name() %></td>
+                                    <td><%= element.getRole_Description() %></td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
+<%--                                        <a href="<%= contextPath + Constants.URL_ROLE_EDIT + "?id=" + role.getId()%>" class="btn btn-sm btn-info">--%>
+<%--                                            <i class="fa fa-pencil-square-o"></i>--%>
+<%--                                        </a>--%>
+                                        <a href="<%= contextPath %><%= Constants.URL_ROLE_DELETE %>?id=<%= element.getRole_ID() %>" class="btn btn-sm btn-danger">Xóa</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>ROLE_USER</td>
-                                    <td>Nhân viên</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                    </td>
-                                </tr>
+                                <%} %>
                                 </tbody>
+
                             </table>
                         </div>
                     </div>

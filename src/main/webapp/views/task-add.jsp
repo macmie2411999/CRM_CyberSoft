@@ -117,7 +117,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <button type="submit" class="btn btn-success">Lưu lại</button>
-                                        <a href="<%= contextPath %>/assignment" class="btn btn-primary">Quay lại</a>
+                                        <a href="<%= contextPath %><%=Constants.URL_ASSIGNMENT%>" class="btn btn-primary">Quay lại</a>
                                     </div>
                                 </div>
                             </form>

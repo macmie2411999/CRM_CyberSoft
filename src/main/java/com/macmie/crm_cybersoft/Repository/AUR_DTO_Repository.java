@@ -3,6 +3,7 @@ package com.macmie.crm_cybersoft.Repository;
 import com.macmie.crm_cybersoft.Connection.MySQLConnectionConfiguration;
 import com.macmie.crm_cybersoft.Constants.Constants;
 import com.macmie.crm_cybersoft.DTO.AssignmentUserRole;
+import com.macmie.crm_cybersoft.DTO.ProjectAssignmentUser;
 import com.macmie.crm_cybersoft.Pojo.Assignment_CRM;
 
 import java.sql.Connection;
@@ -13,12 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AUR_DTO_Repository implements AUR_DTO_RepositoryInterface {
-    List<AssignmentUserRole> listAssignmentUserRole = new ArrayList<AssignmentUserRole>();
+    List<AssignmentUserRole> listAssignmentUserRole;
+
+    public AUR_DTO_Repository(List<AssignmentUserRole> listAssignmentUserRole) {
+        this.listAssignmentUserRole = listAssignmentUserRole;
+    }
 
     @Override
     public List<AssignmentUserRole> getAllAssignmentUserRole() {
         try {
-            String query = "SELECT * FROM (Assignment_CRM INNER JOIN User_CRM ON Assignment_CRM.Assignment_User_ID = User_CRM.User_ID) INNER JOIN Role_CRM ON User_CRM.User_Role_ID = Role_CRM.Role_ID";
+            String query = "SELECT * FROM (User_CRM LEFT JOIN Assignment_CRM ON Assignment_CRM.Assignment_User_ID = User_CRM.User_ID) INNER JOIN Role_CRM ON User_CRM.User_Role_ID = Role_CRM.Role_ID";
             Connection connectionMySQL = MySQLConnectionConfiguration.getConnection();
 
             PreparedStatement statement = connectionMySQL.prepareStatement(query);

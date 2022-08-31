@@ -65,7 +65,7 @@
                     <h4 class="page-title">Danh sách công việc</h4>
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-                    <a href="<%= contextPath %>/assignment/add" class="btn btn-sm btn-success">Thêm mới</a>
+                    <a href="<%= contextPath %><%= Constants.URL_ASSIGNMENT_ADD %>" class="btn btn-sm btn-success">Thêm mới</a>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -100,7 +100,7 @@
                                             <td><%= element.getAssignment_Status() %></td>
                                             <td>
         <%--                                        <a href="<%= contextPath %>/task/edit" class="btn btn-sm btn-primary">Sửa</a>--%>
-                                                <a href="<%= contextPath %>/assignment/delete?id=<%= element.getAssignment_ID() %>" class="btn btn-sm btn-danger">Xóa</a>
+                                                <a href="<%= contextPath %><%= Constants.URL_ASSIGNMENT_DELETE %>?id=<%= element.getAssignment_ID() %>" class="btn btn-sm btn-danger">Xóa</a>
                                             </td>
                                         </tr>
                                 <%}%>

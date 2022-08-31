@@ -1,4 +1,7 @@
-<%--
+<%@ page import="com.macmie.crm_cybersoft.Constants.Constants" %>
+<%@ page import="com.macmie.crm_cybersoft.DTO.AssignmentUserRole" %>
+<%@ page import="com.macmie.crm_cybersoft.Pojo.Role_CRM" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: macmie
   Date: 17.08.2022
@@ -7,7 +10,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%	String contextPath = request.getContextPath(); %>
+<%
+    String contextPath = request.getContextPath();
+    List<AssignmentUserRole> listAssignmentUserRole = (List<AssignmentUserRole>) request.getAttribute(Constants.LIST_AUR_DTO);
+    List<Role_CRM> listRoles = (List<Role_CRM>) request.getAttribute(Constants.LIST_ROLES);
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,44 +68,39 @@
                 <div class="col-md-2 col-12"></div>
                 <div class="col-md-8 col-xs-12">
                     <div class="white-box">
-                        <form class="form-horizontal form-material">
+                        <form class="form-horizontal form-material" method="post" action="<%= contextPath + Constants.URL_USER_ADD %>">
                             <div class="form-group">
                                 <label class="col-md-12">Full Name</label>
                                 <div class="col-md-12">
                                     <input type="text" placeholder="Johnathan Doe"
-                                           class="form-control form-control-line"> </div>
+                                           class="form-control form-control-line" name="<%= Constants.USER_CRM_NAME%>"> </div>
                             </div>
                             <div class="form-group">
                                 <label for="example-email" class="col-md-12">Email</label>
                                 <div class="col-md-12">
                                     <input type="email" placeholder="johnathan@admin.com"
-                                           class="form-control form-control-line" name="example-email"
+                                           class="form-control form-control-line" name="<%= Constants.USER_CRM_EMAIL%>"
                                            id="example-email"> </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12">Password</label>
                                 <div class="col-md-12">
-                                    <input type="password" value="password" class="form-control form-control-line">
+                                    <input type="password" value="password" class="form-control form-control-line" name="<%= Constants.USER_CRM_PASSWORD%>">
                                 </div>
                             </div>
+
+<%--                            mm start--%>
                             <div class="form-group">
-                                <label class="col-md-12">Phone No</label>
+                                <label class="col-md-12">Vai Trò</label>
                                 <div class="col-md-12">
-                                    <input type="text" placeholder="123 456 7890"
-                                           class="form-control form-control-line"> </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-12">Select Country</label>
-                                <div class="col-sm-12">
-                                    <select class="form-control form-control-line">
-                                        <option>London</option>
-                                        <option>India</option>
-                                        <option>Usa</option>
-                                        <option>Canada</option>
-                                        <option>Thailand</option>
+                                    <select class="form-control form-control-line" name= "<%= Constants.USER_CRM_ROLE_ID %>">
+                                        <%for(Role_CRM element : listRoles){%>
+                                        <option value="<%= element.getRole_ID()%>"><%= element.getRole_Name() %></option>
+                                        <%}%>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <button type="submit" class="btn btn-success">Add User</button>

@@ -18,4 +18,14 @@ public class RoleService implements RoleServiceInterface {
     public List<Role_CRM> getAllRoles() {
         return roleRepositoryInterface.getAllRoles();
     }
+
+    @Override
+    public void deleteRoleByID(String roleID) {
+        roleRepositoryInterface.deleteRoleByID(roleID);
+    }
+
+    @Override
+    public void addNewRole(Role_CRM newRole) {
+        roleRepositoryInterface.addNewRole(newRole);
+    }
 }

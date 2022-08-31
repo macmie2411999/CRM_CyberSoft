@@ -43,4 +43,39 @@ public class RoleRepository implements RoleRepositoryInterface{
         }
         return listRoles;
     }
+
+    @Override
+    public void deleteRoleByID(String roleID) {
+        try {
+            String query = "DELETE FROM Role_CRM WHERE Role_ID = ?";
+            Connection connectionMySQL = MySQLConnectionConfiguration.getConnection();
+
+            PreparedStatement statement = connectionMySQL.prepareStatement(query);
+            statement.setString(1, roleID);
+
+            int resultSet = statement.executeUpdate();
+
+            connectionMySQL.close();
+        } catch (SQLException e) {
+            System.out.println(Constants.ERROR_QUERY_DATA_FROM_MYSQL + e.getMessage());
+        }
+    }
+
+    @Override
+    public void addNewRole(Role_CRM newRole) {
+        try {
+            String query = "INSERT INTO Role_CRM (Role_Name, Role_Description) VALUES (?, ?)";
+            Connection connectionMySQL = MySQLConnectionConfiguration.getConnection();
+
+            PreparedStatement statement = connectionMySQL.prepareStatement(query);
+            statement.setString(1, newRole.getRole_Name());
+            statement.setString(2, newRole.getRole_Description());
+
+            int resultSet = statement.executeUpdate();
+
+            connectionMySQL.close();
+        } catch (SQLException e) {
+            System.out.println(Constants.ERROR_QUERY_DATA_FROM_MYSQL + e.getMessage());
+        }
+    }
 }

@@ -24,14 +24,14 @@
         <div class="col-md-5 m-auto mt-5">
             <h3 class="text-center">ĐĂNG NHẬP HỆ THỐNG</h3>
             <div class="p-4 border mt-4">
-                <form method="post" action="">
+                <form method="POST" action="">
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control" name="email">
+                        <input type="email" class="form-control" name="<%= Constants.LOGIN_JSP_EMAIL %>">
                     </div>
                     <div class="form-group">
                         <label>Mật khẩu</label>
-                        <input type="password" class="form-control" name="password">
+                        <input type="password" class="form-control" name="<%= Constants.LOGIN_JSP_PASSWORD %>">
                     </div>
 
                     <%--                    mm adjust start--%>

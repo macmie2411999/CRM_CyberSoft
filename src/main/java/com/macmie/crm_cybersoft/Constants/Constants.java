@@ -56,6 +56,7 @@ public class Constants {
     public static final String URL_USER = "/user";
     public static final String URL_USER_ADD = "/user/add";
     public static final String URL_USER_DETAILS = "/user/details";
+    public static final String URL_USER_DELETE= "/user/delete";
     /* public static final String URL_USER_EDIT = "/user/table"; */
 
     // AssignmentController
@@ -70,6 +71,7 @@ public class Constants {
     // RoleController
     public static final String URL_ROLE = "/role";
     public static final String URL_ROLE_ADD = "/role/add";
+    public static final String URL_ROLE_DELETE = "/role/delete";
 
     // ProjectController
     public static final String URL_PROJECT = "/project";

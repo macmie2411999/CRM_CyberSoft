@@ -91,7 +91,8 @@ public class ProjectController extends HttpServlet {
                 // Set attributes and forward to View
                 request.setAttribute(Constants.LIST_PROJECTS, projectServiceInterface.getAllProjects());
 
-                request.getRequestDispatcher(Constants.PROJECT_JSP).forward(request, response);
+                response.sendRedirect(request.getContextPath() + Constants.URL_PROJECT);
+//                request.getRequestDispatcher(Constants.PROJECT_JSP).forward(request, response);
                 break;
 
             case Constants.URL_PROJECT_DETAILS:
@@ -130,9 +131,9 @@ public class ProjectController extends HttpServlet {
 
                 break;
 
-            case Constants.URL_PROJECT_DETAILS:
-                request.getRequestDispatcher(Constants.PROJECT_DETAILS_JSP).forward(request, response);
-                break;
+//            case Constants.URL_PROJECT_DETAILS:
+//                request.getRequestDispatcher(Constants.PROJECT_DETAILS_JSP).forward(request, response);
+//                break;
 
             default:
                 break;

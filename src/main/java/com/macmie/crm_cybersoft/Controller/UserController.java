@@ -1,16 +1,14 @@
 package com.macmie.crm_cybersoft.Controller;
 
 import com.macmie.crm_cybersoft.Constants.Constants;
+import com.macmie.crm_cybersoft.DTO.AssignmentUserRole;
 import com.macmie.crm_cybersoft.DTO.ProjectAssignmentUser;
 import com.macmie.crm_cybersoft.Pojo.Assignment_CRM;
 import com.macmie.crm_cybersoft.Pojo.Project_CRM;
+import com.macmie.crm_cybersoft.Pojo.Role_CRM;
 import com.macmie.crm_cybersoft.Pojo.User_CRM;
-import com.macmie.crm_cybersoft.Repository.PAU_DTO_RepositoryInterface;
-import com.macmie.crm_cybersoft.Repository.UserRepository;
-import com.macmie.crm_cybersoft.Repository.UserRepositoryInterface;
-import com.macmie.crm_cybersoft.Service.PAU_DTO_ServiceInterface;
-import com.macmie.crm_cybersoft.Service.UserService;
-import com.macmie.crm_cybersoft.Service.UserServiceInterface;
+import com.macmie.crm_cybersoft.Repository.*;
+import com.macmie.crm_cybersoft.Service.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,40 +16,79 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = {
         Constants.URL_USER,
         Constants.URL_USER_ADD,
+        Constants.URL_USER_DELETE,
         Constants.URL_USER_DETAILS})
 public class UserController extends HttpServlet {
-    List<ProjectAssignmentUser> listProjectAssignmentUser;
-    PAU_DTO_RepositoryInterface pau_dto_repositoryInterface;
-    PAU_DTO_ServiceInterface pau_dto_serviceInterface;
+    List<AssignmentUserRole> listAssignmentUserRole;
+    AUR_DTO_RepositoryInterface aur_dto_repositoryInterface;
+    AUR_DTO_ServiceInterface aur_dto_serviceInterface;
 
     UserRepositoryInterface userRepositoryInterface;
     UserServiceInterface userServiceInterface;
+
+    List<Role_CRM> listRoles;
+    RoleRepositoryInterface roleRepositoryInterface;
+    RoleServiceInterface roleServiceInterface;
 
     List<Project_CRM> listProjects;
     List<Assignment_CRM> listAssignments;
     List<User_CRM> listUsers;
 
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // New Obs
+        listAssignmentUserRole = new ArrayList<AssignmentUserRole>();
+        aur_dto_repositoryInterface = (AUR_DTO_RepositoryInterface) new AUR_DTO_Repository(listAssignmentUserRole);
+        aur_dto_serviceInterface = (AUR_DTO_ServiceInterface) new AUR_DTO_Service(aur_dto_repositoryInterface);
+
+        listUsers = new ArrayList<User_CRM>();
+        userRepositoryInterface = (UserRepositoryInterface) new UserRepository(listUsers);
+        userServiceInterface = (UserServiceInterface) new UserService(userRepositoryInterface);
+
+        listRoles = new ArrayList<Role_CRM>();
+        roleRepositoryInterface = (RoleRepositoryInterface) new RoleRepository(listRoles);
+        roleServiceInterface = (RoleServiceInterface) new RoleService(roleRepositoryInterface);
+
         // Get URL to forward/direct page
         String servletPath = request.getServletPath();
 
         switch (servletPath) {
             case Constants.URL_USER:
+                // Set attributes and forward to View
+                request.setAttribute(Constants.LIST_AUR_DTO, aur_dto_serviceInterface.getAllAssignmentUserRole());
+                request.setAttribute(Constants.LIST_USERS, userServiceInterface.getAllUsers());
+
                 request.getRequestDispatcher(Constants.USER_TABLE_JSP).forward(request, response);
                 break;
 
             case Constants.URL_USER_ADD:
+                // Set attributes and forward to View
+                request.setAttribute(Constants.LIST_AUR_DTO, aur_dto_serviceInterface.getAllAssignmentUserRole());
+                request.setAttribute(Constants.LIST_ROLES, roleServiceInterface.getAllRoles());
+
                 request.getRequestDispatcher(Constants.USER_ADD_JSP).forward(request, response);
                 break;
 
             case Constants.URL_USER_DETAILS:
                 request.getRequestDispatcher(Constants.USER_DETAILS_JSP).forward(request, response);
+                break;
+
+            case Constants.URL_USER_DELETE:
+                // Remove Assignment by ID using AssignmentServiceInterface
+                userServiceInterface.removeUserById(Integer.parseInt(request.getParameter(Constants.JUST_ID)));
+
+                // Set attributes and forward to View
+                request.setAttribute(Constants.LIST_AUR_DTO, aur_dto_serviceInterface.getAllAssignmentUserRole());
+
+                response.sendRedirect(request.getContextPath() + Constants.URL_USER);
+//                request.getRequestDispatcher(Constants.USER_TABLE_JSP).forward(request, response);
                 break;
 
             default:
@@ -62,20 +99,36 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // New Obs
+        listAssignmentUserRole = new ArrayList<AssignmentUserRole>();
+        aur_dto_repositoryInterface = (AUR_DTO_RepositoryInterface) new AUR_DTO_Repository(listAssignmentUserRole);
+        aur_dto_serviceInterface = (AUR_DTO_ServiceInterface) new AUR_DTO_Service(aur_dto_repositoryInterface);
+
+        listUsers = new ArrayList<User_CRM>();
+        userRepositoryInterface = (UserRepositoryInterface) new UserRepository(listUsers);
+        userServiceInterface = (UserServiceInterface) new UserService(userRepositoryInterface);
+
+        listRoles = new ArrayList<Role_CRM>();
+        roleRepositoryInterface = (RoleRepositoryInterface) new RoleRepository(listRoles);
+        roleServiceInterface = (RoleServiceInterface) new RoleService(roleRepositoryInterface);
+
+        User_CRM user;
         // Get URL to forward/direct page
         String servletPath = request.getServletPath();
 
         switch (servletPath) {
-            case Constants.URL_USER:
-                request.getRequestDispatcher(Constants.USER_TABLE_JSP).forward(request, response);
-                break;
-
             case Constants.URL_USER_ADD:
-                request.getRequestDispatcher(Constants.USER_ADD_JSP).forward(request, response);
-                break;
+                user = new User_CRM();
+                user.setUser_Name(request.getParameter(Constants.USER_CRM_NAME));
+                user.setUser_Email(request.getParameter(Constants.USER_CRM_EMAIL));
+                user.setUser_Password(request.getParameter(Constants.USER_CRM_PASSWORD));
+                user.setUser_Role_ID(Integer.parseInt(request.getParameter(Constants.USER_CRM_ROLE_ID)));
 
-            case Constants.URL_USER_DETAILS:
-                request.getRequestDispatcher(Constants.USER_DETAILS_JSP).forward(request, response);
+                // Execute add query
+                System.out.println(user.getUser_Name());
+                userServiceInterface.addUser(user);
+
+                response.sendRedirect(request.getContextPath() + Constants.URL_USER);
                 break;
 
             default:

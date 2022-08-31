@@ -123,7 +123,7 @@ public class UserRepository implements UserRepositoryInterface {
     @Override
     public void removeUserById(int ID) {
         try {
-            String query = "DELETE FROM User_CRM WHERE User_Role_ID = ?";
+            String query = "DELETE FROM User_CRM WHERE User_ID = ?";
             Connection connectionMySQL = MySQLConnectionConfiguration.getConnection();
 
             PreparedStatement statement = connectionMySQL.prepareStatement(query);

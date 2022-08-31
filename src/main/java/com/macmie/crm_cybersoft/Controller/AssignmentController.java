@@ -104,13 +104,13 @@ public class AssignmentController extends HttpServlet {
             case Constants.URL_ASSIGNMENT_DELETE:
 
                 // Remove Assignment by ID using AssignmentServiceInterface
-
-                assignmentServiceInterface.deleteAssignmentsByID(request.getParameter("id"));
+                assignmentServiceInterface.deleteAssignmentsByID(request.getParameter(Constants.JUST_ID));
 
                 // Set attributes and forward to View
                 request.setAttribute(Constants.LIST_PAU_DTO, pau_dto_serviceInterface.getAllProjectAssignmentUser());
 
-                request.getRequestDispatcher(Constants.ASSIGNMENT_JSP).forward(request, response);
+                response.sendRedirect(request.getContextPath() + Constants.URL_ASSIGNMENT);
+//                request.getRequestDispatcher(Constants.ASSIGNMENT_JSP).forward(request, response);
                 break;
             default:
                 break;

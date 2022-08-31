@@ -1,4 +1,7 @@
-<%--
+<%@ page import="com.macmie.crm_cybersoft.Constants.Constants" %>
+<%@ page import="com.macmie.crm_cybersoft.DTO.AssignmentUserRole" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.macmie.crm_cybersoft.Pojo.User_CRM" %><%--
   Created by IntelliJ IDEA.
   User: macmie
   Date: 17.08.2022
@@ -7,7 +10,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<% String contextPath = request.getContextPath(); %>
+<%
+    String contextPath = request.getContextPath();
+    List<AssignmentUserRole> listAssignmentUserRole = (List<AssignmentUserRole>) request.getAttribute(Constants.LIST_AUR_DTO);
+    List<User_CRM> listUsers = (List<User_CRM>) request.getAttribute(Constants.LIST_USERS);
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,7 +65,7 @@
                     <h4 class="page-title">Danh sách thành viên</h4>
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-                    <a href="<%= contextPath %>/user/add" class="btn btn-sm btn-success">Thêm mới</a>
+                    <a href="<%= contextPath %><%=Constants.URL_USER_ADD%>" class="btn btn-sm btn-success">Thêm mới</a>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -79,150 +86,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <%for(AssignmentUserRole element : listAssignmentUserRole){ %>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Deshmukh</td>
-                                    <td>Prohaska</td>
-                                    <td>@Genelia</td>
-                                    <td>admin</td>
+                                    <td><%= element.getUser_ID() %></td>
+                                    <td><%= element.getUser_Email() %></td>
+                                    <td><%= element.getUser_Name() %></td>
+                                    <td><%= element.getRole_Name() %></td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/user/details" class="btn btn-sm btn-info">Xem</a>
+<%--                                        <a href="<%= contextPath %>/user/edit?id=<%= userDto.getId() %>" class="btn btn-sm btn-primary">Sửa</a>--%>
+                                        <a href="<%= contextPath %><%=Constants.URL_USER_DELETE%>?id=<%= element.getUser_ID() %>" class="btn btn-sm btn-danger">Xóa</a>
+                                        <a href="<%= contextPath %><%= Constants.URL_USER_DETAILS%>?id=<%= element.getUser_ID() %>" class="btn btn-sm btn-info">Xem</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Deshmukh</td>
-                                    <td>Gaylord</td>
-                                    <td>@Ritesh</td>
-                                    <td>member</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/user/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Sanghani</td>
-                                    <td>Gusikowski</td>
-                                    <td>@Govinda</td>
-                                    <td>developer</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/user/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Roshan</td>
-                                    <td>Rogahn</td>
-                                    <td>@Hritik</td>
-                                    <td>supporter</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/user/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Joshi</td>
-                                    <td>Hickle</td>
-                                    <td>@Maruti</td>
-                                    <td>member</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/user/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Nigam</td>
-                                    <td>Eichmann</td>
-                                    <td>@Sonu</td>
-                                    <td>supporter</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/user/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Deshmukh</td>
-                                    <td>Prohaska</td>
-                                    <td>@Genelia</td>
-                                    <td>admin</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/user/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Deshmukh</td>
-                                    <td>Gaylord</td>
-                                    <td>@Ritesh</td>
-                                    <td>member</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/user/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Sanghani</td>
-                                    <td>Gusikowski</td>
-                                    <td>@Govinda</td>
-                                    <td>developer</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/user/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Roshan</td>
-                                    <td>Rogahn</td>
-                                    <td>@Hritik</td>
-                                    <td>supporter</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/user/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Joshi</td>
-                                    <td>Hickle</td>
-                                    <td>@Maruti</td>
-                                    <td>member</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/user/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Nigam</td>
-                                    <td>Eichmann</td>
-                                    <td>@Sonu</td>
-                                    <td>supporter</td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                        <a href="<%= contextPath %>/user/details" class="btn btn-sm btn-info">Xem</a>
-                                    </td>
-                                </tr>
+                                <%} %>
                                 </tbody>
                             </table>
                         </div>

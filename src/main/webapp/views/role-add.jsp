@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.macmie.crm_cybersoft.Constants.Constants" %><%--
   Created by IntelliJ IDEA.
   User: macmie
   Date: 17.08.2022
@@ -61,24 +61,24 @@
                 <div class="col-md-2 col-12"></div>
                 <div class="col-md-8 col-xs-12">
                     <div class="white-box">
-                        <form class="form-horizontal form-material">
+                        <form class="form-horizontal form-material" method="POST" action="<%= contextPath + Constants.URL_ROLE_ADD %>">
                             <div class="form-group">
                                 <label class="col-md-12">Tên quyền</label>
                                 <div class="col-md-12">
                                     <input type="text" placeholder="Tên quyền"
-                                           class="form-control form-control-line" />
+                                           class="form-control form-control-line" name="<%= Constants.ROLE_CRM_NAME%>"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12">Mô tả</label>
                                 <div class="col-md-12">
-                                    <input type="text" placeholder="Mô tả" class="form-control form-control-line" />
+                                    <input type="text" placeholder="Mô tả" class="form-control form-control-line" name="<%= Constants.ROLE_CRM_DESCRIPTION%>"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <button type="submit" class="btn btn-success">Add Role</button>
-                                    <a href="<%= contextPath %>/role" class="btn btn-primary">Quay lại</a>
+                                    <a href="<%= contextPath %><%= Constants.URL_ROLE%>" class="btn btn-primary">Quay lại</a>
                                 </div>
                             </div>
                         </form>
