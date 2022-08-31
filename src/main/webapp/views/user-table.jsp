@@ -78,9 +78,8 @@
                                 <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Username</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
                                     <th>Role</th>
                                     <th>#</th>
                                 </tr>
@@ -89,8 +88,8 @@
                                 <%for(AssignmentUserRole element : listAssignmentUserRole){ %>
                                 <tr>
                                     <td><%= element.getUser_ID() %></td>
-                                    <td><%= element.getUser_Email() %></td>
                                     <td><%= element.getUser_Name() %></td>
+                                    <td><%= element.getUser_Email() %></td>
                                     <td><%= element.getRole_Name() %></td>
                                     <td>
 <%--                                        <a href="<%= contextPath %>/user/edit?id=<%= userDto.getId() %>" class="btn btn-sm btn-primary">Sửa</a>--%>

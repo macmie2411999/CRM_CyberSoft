@@ -22,7 +22,7 @@ public class Constants {
     public static final String ASSIGNMENT_JSP = "/views/task.jsp";
     public static final String ASSIGNMENT_ADD_JSP = "/views/task-add.jsp";
     public static final String USER_ADD_JSP = "/views/user-add.jsp";
-    public static final String USER_DETAILS_JSP = "/views/user-detail.jsp";
+    public static final String USER_DETAILS_JSP = "/views/user-details.jsp";
     public static final String USER_TABLE_JSP = "/views/user-table.jsp";
 
 
@@ -143,4 +143,10 @@ public class Constants {
     public static final String BEAN_PAU_DTO_REPOSITORY_INTERFACE = "pau_dto_repositoryInterface";
     public static final String FLAG_UN_DELETABLE = "Un_deletable";
     public static final String JUST_ID = "id";
+
+    public static final String SELECTED_USE = "Selected_User";
+    public static final String LIST_USER_ASSIGNMENTS = "List_User_Assignments";
+    public static final String LIST_COMPLETED_ASSIGNMENTS = "List_Completed_Assignments";
+    public static final String LIST_PROCESSING_ASSIGNMENTS = "List_Processing_Assignments";
+    public static final String LIST_STILL_ASSIGNMENTS = "List_Still_Assignments";
 }

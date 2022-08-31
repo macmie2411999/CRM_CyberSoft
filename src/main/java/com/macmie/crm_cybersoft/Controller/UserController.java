@@ -32,12 +32,17 @@ public class UserController extends HttpServlet {
     UserRepositoryInterface userRepositoryInterface;
     UserServiceInterface userServiceInterface;
 
+    AssignmentRepositoryInterface assignmentRepositoryInterface;
+    AssignmentServiceInterface assignmentServiceInterface;
+
     List<Role_CRM> listRoles;
     RoleRepositoryInterface roleRepositoryInterface;
     RoleServiceInterface roleServiceInterface;
 
     List<Project_CRM> listProjects;
     List<Assignment_CRM> listAssignments;
+    List<Assignment_CRM> listAssignmentsTemp;
+    List<Assignment_CRM> listAssignmentsTemp2;
     List<User_CRM> listUsers;
 
 
@@ -56,6 +61,12 @@ public class UserController extends HttpServlet {
         roleRepositoryInterface = (RoleRepositoryInterface) new RoleRepository(listRoles);
         roleServiceInterface = (RoleServiceInterface) new RoleService(roleRepositoryInterface);
 
+        listAssignments = new ArrayList<Assignment_CRM>();
+        assignmentRepositoryInterface = (AssignmentRepositoryInterface) new AssignmentRepository( listAssignments);
+        assignmentServiceInterface = (AssignmentServiceInterface) new AssignmentService(assignmentRepositoryInterface);
+
+        Integer userID;
+
         // Get URL to forward/direct page
         String servletPath = request.getServletPath();
 
@@ -70,6 +81,7 @@ public class UserController extends HttpServlet {
 
             case Constants.URL_USER_ADD:
                 // Set attributes and forward to View
+//                List<Assignment_CRM> listAssignmentsOfSelectedUser = assignmentServiceInterface.getAllAssignments();
                 request.setAttribute(Constants.LIST_AUR_DTO, aur_dto_serviceInterface.getAllAssignmentUserRole());
                 request.setAttribute(Constants.LIST_ROLES, roleServiceInterface.getAllRoles());
 
@@ -77,7 +89,28 @@ public class UserController extends HttpServlet {
                 break;
 
             case Constants.URL_USER_DETAILS:
-                request.getRequestDispatcher(Constants.USER_DETAILS_JSP).forward(request, response);
+
+                // Get User ID from request
+                userID = Integer.valueOf(request.getParameter(Constants.JUST_ID));
+                System.out.println("ID User: " + userID);
+
+                // Get all assignments of selected user
+                List<Assignment_CRM> listAssignmentsOfSelectedUser = assignmentServiceInterface.getAllAssignmentsByUserID(String.valueOf(userID));
+                System.out.println("Assignment of User: " + listAssignmentsOfSelectedUser.size());
+
+                // Set attributes and forward to View
+                if(listAssignmentsOfSelectedUser.size()==0){
+                    System.out.println("User have no Assignments");
+                    response.sendRedirect(request.getContextPath() + Constants.URL_USER);
+                } else{
+                    request.setAttribute(Constants.SELECTED_USE, userServiceInterface.getUserById(userID));
+                    request.setAttribute(Constants.LIST_USER_ASSIGNMENTS, listAssignmentsOfSelectedUser);
+                    request.setAttribute(Constants.LIST_COMPLETED_ASSIGNMENTS, assignmentServiceInterface.getAllAssignmentsByStatus(listAssignmentsOfSelectedUser, Constants.ASSIGNMENT_COMPLETED));
+                    request.setAttribute(Constants.LIST_PROCESSING_ASSIGNMENTS, assignmentServiceInterface.getAllAssignmentsByStatus(listAssignmentsOfSelectedUser, Constants.ASSIGNMENT_PROCESSING));
+                    request.setAttribute(Constants.LIST_STILL_ASSIGNMENTS, assignmentServiceInterface.getAllAssignmentsByStatus(listAssignmentsOfSelectedUser, Constants.ASSIGNMENT_STILL));
+                    request.getRequestDispatcher(Constants.USER_DETAILS_JSP).forward(request, response);
+//                    response.sendRedirect(request.getContextPath() + Constants.USER_DETAILS_JSP);
+                }
                 break;
 
             case Constants.URL_USER_DELETE:

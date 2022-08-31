@@ -8,6 +8,9 @@ public interface AssignmentServiceInterface {
     List<Assignment_CRM> getAllAssignments();
     Integer getNumbersOfSelectedAssignments(List<Assignment_CRM> listAssignmentsCRM, String assignmentStatus);
     List<Assignment_CRM> getAllAssignmentsByName(String assignmentName);
+    List<Assignment_CRM> getAllAssignmentsByStatus(List<Assignment_CRM> listAssignmentsCRM, String assignmentStatus);
+    List<Assignment_CRM> getAllAssignmentsByUserID(List<Assignment_CRM> listAssignmentsCRM, Integer userID);
+    List<Assignment_CRM> getAllAssignmentsByUserID(String userID);
     void deleteAssignmentsByID(String assignmentID);
     void addNewAssignment(Assignment_CRM newAssignment);
 }
