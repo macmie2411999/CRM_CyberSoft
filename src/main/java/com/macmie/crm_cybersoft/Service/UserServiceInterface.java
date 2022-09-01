@@ -12,6 +12,8 @@ public interface UserServiceInterface {
 
     void addUser(User_CRM userCRM);
 
+    public void updateUserByID(User_CRM user, int userID);
+
     void removeUserById(int ID);
 
     List<User_CRM> getAllUsers();

@@ -101,6 +101,28 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     @Override
+    public void updateUserByID(User_CRM user, int userID) {
+        try {
+            String query = "UPDATE User_CRM SET User_Name = ?, User_Email = ?, User_Password = ? WHERE User_ID = ?";
+            Connection connectionMySQL = MySQLConnectionConfiguration.getConnection();
+            PreparedStatement statement = connectionMySQL.prepareStatement(query);
+
+            statement.setString(1, user.getUser_Name());
+            statement.setString(2, user.getUser_Email());
+            statement.setString(3, user.getUser_Password());
+            statement.setInt(4, userID);
+
+            int result = statement.executeUpdate();
+            if(result < 1) {
+                System.out.println("Update User with ID: " + userID + " unsuccessfully.");
+            }
+            connectionMySQL.close();
+        } catch (Exception e) {
+            System.out.println(Constants.ERROR_QUERY_DATA_FROM_MYSQL + e.getMessage());
+        }
+    }
+
+    @Override
     public void addUser(User_CRM userCRM) {
         try {
             String query = "INSERT INTO User_CRM (User_Name, User_Email, User_Password, User_Role_ID) VALUES (?, ?, ?, ?);";

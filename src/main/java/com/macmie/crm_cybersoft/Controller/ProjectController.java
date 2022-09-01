@@ -55,6 +55,7 @@ public class ProjectController extends HttpServlet {
         projectServiceInterface = (ProjectServiceInterface) new ProjectService(projectRepositoryInterface);
 
         String projectID;
+
         // Get URL to forward/direct page
         String servletPath = request.getServletPath();
 
@@ -69,8 +70,6 @@ public class ProjectController extends HttpServlet {
 
             case Constants.URL_PROJECT_ADD:
                 // Set attributes and forward to View
-//                request.setAttribute(Constants.LIST_PAU_DTO, pau_dto_serviceInterface.getAllProjectAssignmentUser());
-//                request.setAttribute(Constants.LIST_USERS, pau_dto_serviceInterface.getAllUsers());
                 request.setAttribute(Constants.LIST_PROJECTS, projectRepositoryInterface.getAllProjects());
 
                 request.getRequestDispatcher(Constants.PROJECT_ADD_JSP).forward(request, response);
@@ -106,7 +105,7 @@ public class ProjectController extends HttpServlet {
 
             case Constants.URL_PROJECT_DETAILS:
 
-                // Get User ID from request
+                // Get Project ID from request
                 projectID = request.getParameter(Constants.JUST_ID);
                 System.out.println("ID Project: " + projectID);
 

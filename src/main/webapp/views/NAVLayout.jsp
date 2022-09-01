@@ -45,19 +45,26 @@
                         <b class="hidden-xs">Cybersoft</b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="<%= contextPath %>/profile">Thông tin cá nhân và Công việc</a></li>
+                        <li><a href="<%= contextPath %><%= Constants.URL_PROFILE %>">Thông tin cá nhân và Công việc</a></li>
 <%--                                                <li><a href="<%=contextPath%>/profile">Thống kê công việc</a></li>--%>
 
                         <%--                    mm adjust start--%>
                         <%--                    Check Role--%>
                         <%
                             HttpServletRequest requestHttp = (HttpServletRequest) request;
-                            String message = "Role: " + requestHttp.getSession().getAttribute(Constants.ID_CURRENT_USER_ROLE).toString();
+                            String message = "" + requestHttp.getSession().getAttribute(Constants.ID_CURRENT_USER_ROLE).toString();
+                            if(message.equals(Constants.ROLE_ADMIN)){
+                                message = "Role: Admin";
+                            } else if(message.equals(Constants.ROLE_LEADER)){
+                                message = "Role: Leader";
+                            } else{
+                                message = "Role: Member";
+                            }
                         %>
                         <li> <a><%= message %></a> </li>
                         <%--                    mm adjust end--%>
 
-                        <li><a href="<%= contextPath %>/logout">Đăng xuất</a></li>
+                        <li><a href="<%= contextPath %><%= Constants.URL_LOGOUT %>">Đăng xuất</a></li>
                     </ul>
                 </div>
             </li>
@@ -72,22 +79,22 @@
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
         <ul class="nav" id="side-menu">
             <li style="padding: 10px 0 0;">
-                <a href="<%= contextPath %>/home" class="waves-effect"><i class="fa fa-clock-o fa-fw"
+                <a href="<%= contextPath %><%= Constants.URL_HOME %>" class="waves-effect"><i class="fa fa-clock-o fa-fw"
                                                                           aria-hidden="true"></i><span
                         class="hide-menu">Dashboard</span></a>
             </li>
             <li>
-                <a href="<%= contextPath %>/user" class="waves-effect"><i class="fa fa-user fa-fw"
+                <a href="<%= contextPath %><%= Constants.URL_USER %>" class="waves-effect"><i class="fa fa-user fa-fw"
                                                                           aria-hidden="true"></i><span
                         class="hide-menu">Thành viên</span></a>
             </li>
             <li>
-                <a href="<%= contextPath %>/role" class="waves-effect"><i class="fa fa-modx fa-fw"
+                <a href="<%= contextPath %><%= Constants.URL_ROLE %>" class="waves-effect"><i class="fa fa-modx fa-fw"
                                                                           aria-hidden="true"></i><span
                         class="hide-menu">Quyền</span></a>
             </li>
             <li>
-                <a href="<%= contextPath %>/project" class="waves-effect"><i class="fa fa-table fa-fw"
+                <a href="<%= contextPath %><%= Constants.URL_PROJECT %>" class="waves-effect"><i class="fa fa-table fa-fw"
                                                                              aria-hidden="true"></i><span
                         class="hide-menu">Dự án</span></a>
             </li>
@@ -97,12 +104,12 @@
                         class="hide-menu">Công việc</span></a>
             </li>
             <li>
-                <a href="<%= contextPath %>/blank" class="waves-effect"><i class="fa fa-table fa-fw"
+                <a href="<%= contextPath %><%= Constants.URL_BLANK %>" class="waves-effect"><i class="fa fa-table fa-fw"
                                                                            aria-hidden="true"></i><span
                         class="hide-menu">Blank Page</span></a>
             </li>
             <li>
-                <a href="<%= contextPath %>/404" class="waves-effect"><i class="fa fa-info-circle fa-fw"
+                <a href="<%= contextPath %><%= Constants.URL_PNG %>" class="waves-effect"><i class="fa fa-info-circle fa-fw"
                                                                          aria-hidden="true"></i><span
                         class="hide-menu">Error 404</span></a>
             </li>

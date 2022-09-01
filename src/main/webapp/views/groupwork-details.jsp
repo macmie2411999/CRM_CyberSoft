@@ -13,7 +13,7 @@
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 <%
     String contextPath = request.getContextPath();
-    Project_CRM user = (Project_CRM) request.getAttribute(Constants.SELECTED_PROJECT);
+    Project_CRM project = (Project_CRM) request.getAttribute(Constants.SELECTED_PROJECT);
     List<ProjectAssignmentUser> listAll_PAU = (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_PAU_PROJECT);
     List<ProjectAssignmentUser> listCompleted_PAU = (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_COMPLETED_ASSIGNMENTS);
     List<ProjectAssignmentUser> listProcessing_PAU= (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_PROCESSING_ASSIGNMENTS);
@@ -30,8 +30,6 @@
         Completed_PAU_Percentage = numberCompleted_PAU*100/numberAll_PAU;
         Processing_PAU_Percentage = numberProcessing_PAU*100/numberAll_PAU;
         Still_PAU_Percentage = numberStill_PAU*100/numberAll_PAU;
-    } else{
-
     }
 %>
 <!DOCTYPE html>

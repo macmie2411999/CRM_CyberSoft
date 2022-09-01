@@ -25,6 +25,11 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
+    public void updateUserByID(User_CRM user, int userID) {
+        userRepositoryInterface.updateUserByID(user, userID);
+    }
+
+    @Override
     public User_CRM getUserById(int ID) {
 
         return userRepositoryInterface.getUserById(ID);

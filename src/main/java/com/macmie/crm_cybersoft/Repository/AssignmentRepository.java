@@ -172,4 +172,28 @@ public class AssignmentRepository implements AssignmentRepositoryInterface {
             System.out.println(Constants.ERROR_QUERY_DATA_FROM_MYSQL + e.getMessage());
         }
     }
+
+    @Override
+    public void updateAssignmentByID(Assignment_CRM updateAssignment, int assignmentID) {
+        try {
+            String query = "UPDATE Assignment_CRM SET Assignment_Name = ?, Assignment_Start_Date = ?, Assignment_End_Date = ?, Assignment_Status = ?, Assignment_Project_ID = ? WHERE Assignment_ID = ?";
+            Connection connectionMySQL = MySQLConnectionConfiguration.getConnection();
+            PreparedStatement statement = connectionMySQL.prepareStatement(query);
+
+            statement.setString(1, updateAssignment.getAssignment_Name());
+            statement.setString(2, updateAssignment.getAssignment_Start_Date());
+            statement.setString(3, updateAssignment.getAssignment_End_Date());
+            statement.setString(4, updateAssignment.getAssignment_Status());
+            statement.setInt(5, updateAssignment.getAssignment_Project_ID());
+            statement.setInt(6, assignmentID);
+
+            int result = statement.executeUpdate();
+            if(result < 1) {
+                System.out.println("Update Assignment with ID: " + assignmentID + " unsuccessfully.");
+            }
+            connectionMySQL.close();
+        } catch (Exception e) {
+            System.out.println(Constants.ERROR_QUERY_DATA_FROM_MYSQL + e.getMessage());
+        }
+    }
 }

@@ -1,4 +1,8 @@
-<%--
+<%@ page import="com.macmie.crm_cybersoft.Pojo.User_CRM" %>
+<%@ page import="com.macmie.crm_cybersoft.Constants.Constants" %>
+<%@ page import="com.macmie.crm_cybersoft.DTO.ProjectAssignmentUser" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.macmie.crm_cybersoft.Pojo.Project_CRM" %><%--
   Created by IntelliJ IDEA.
   User: macmie
   Date: 17.08.2022
@@ -7,7 +11,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%	String contextPath = request.getContextPath(); %>
+<%
+    String contextPath = request.getContextPath();
+    User_CRM user = (User_CRM) request.getAttribute(Constants.SELECTED_USE);
+    ProjectAssignmentUser selectedPAU = (ProjectAssignmentUser) request.getAttribute(Constants.SELECTED_PAU);
+    List<Project_CRM> listProjects = (List<Project_CRM>) request.getAttribute(Constants.LIST_PROJECTS);
+    List<String> listAssignmentStatus = (List<String>) request.getAttribute(Constants.LIST_ASSIGNMENTS_STATUS);
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +62,7 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Thêm mới công việc</h4>
+                    <h4 class="page-title">Cập nhật công việc</h4>
                 </div>
             </div>
             <!-- /.row -->
@@ -61,45 +71,55 @@
                 <div class="col-md-2 col-12"></div>
                 <div class="col-md-8 col-xs-12">
                     <div class="white-box">
-                        <form class="form-horizontal form-material">
+                        <form class="form-horizontal form-material" method="POST" action="<%= contextPath + Constants.URL_PROFILE_EDIT %>">
                             <div class="form-group">
-                                <label class="col-md-12">Tên dự án</label>
+                                <label class="col-md-12">Dự án</label>
                                 <div class="col-md-12">
-                                    <input type="text" readonly value="Dự án CRM" class="form-control form-control-line">
+                                    <select class="form-control form-control-line" name= "<%= Constants.ASSIGNMENT_CRM_PROJECT_ID %>">
+                                        <%for(Project_CRM element : listProjects){%>
+                                        <option value="<%= element.getProject_ID()%>"><%= element.getProject_Name() %></option>
+                                        <%}%>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12">Tên công việc</label>
                                 <div class="col-md-12">
-                                    <input type="text" readonly value="Thiết kế database" class="form-control form-control-line">
+                                    <input type="text" placeholder="Tên công việc"
+                                           class="form-control form-control-line" name= "<%= Constants.ASSIGNMENT_CRM_NAME %>">
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-md-12">Ngày bắt đầu</label>
                                 <div class="col-md-12">
-                                    <input type="text" readonly value="05-07/2020" class="form-control form-control-line">
+                                    <input type="text" placeholder="dd/MM/yyyy"
+                                           class="form-control form-control-line" name= "<%= Constants.ASSIGNMENT_CRM_START_DATE %>" >
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12">Ngày kết thúc</label>
                                 <div class="col-md-12">
-                                    <input type="text" readonly value="17-07/2020" class="form-control form-control-line">
+                                    <input type="text" placeholder="dd/MM/yyyy"
+                                           class="form-control form-control-line" name= "<%= Constants.ASSIGNMENT_CRM_END_DATE %>">
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-md-12">Trạng thái</label>
                                 <div class="col-md-12">
-                                    <select class="form-control form-control-line">
-                                        <option>Chưa thực hiện</option>
-                                        <option selected>Đang thực hiện</option>
-                                        <option>Đã hoàn thành</option>
+                                    <select class="form-control form-control-line" name= "<%= Constants.ASSIGNMENT_CRM_STATUS %>">
+                                        <%for(String element : listAssignmentStatus){%>
+                                        <option value="<%= element %>"> <%= element %> </option>
+                                        <%}%>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <button type="submit" class="btn btn-success">Lưu lại</button>
-                                    <a href="<%= contextPath %>/profile" class="btn btn-primary">Quay lại</a>
+                                    <a href="<%= contextPath %> <%= Constants.URL_PROFILE %>" class="btn btn-primary">Quay lại</a>
                                 </div>
                             </div>
                         </form>

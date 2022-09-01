@@ -29,8 +29,6 @@
         CompletedAssignmentPercentage = numberCompletedAssignments*100/numberAllAssignments;
         ProcessingAssignmentPercentage = numberProcessingAssignments*100/numberAllAssignments;
         StillAssignmentPercentage = numberStillAssignments*100/numberAllAssignments;
-    } else{
-
     }
 %>
 <!DOCTYPE html>

@@ -136,6 +136,17 @@ public class PAU_DTO_Service implements PAU_DTO_ServiceInterface {
     }
 
     @Override
+    public List<ProjectAssignmentUser> getAll_PAU_By_UserID(List<ProjectAssignmentUser> listPAU, String userID) {
+        List<ProjectAssignmentUser> listPAUFinal = new ArrayList<ProjectAssignmentUser>();
+        for(ProjectAssignmentUser element : listPAU){
+            if((element.getAssignment_User_ID() + "").equals(userID)){
+                listPAUFinal.add(element);
+            }
+        }
+        return listPAUFinal;
+    }
+
+    @Override
     public List<ProjectAssignmentUser> getAll_PAU_By_statusAssignment(List<ProjectAssignmentUser> listPAU, String statusAssignment) {
         List<ProjectAssignmentUser> listPAUFinal = new ArrayList<ProjectAssignmentUser>();
         for(ProjectAssignmentUser element : listPAU){
@@ -144,5 +155,17 @@ public class PAU_DTO_Service implements PAU_DTO_ServiceInterface {
             }
         }
         return listPAUFinal;
+    }
+
+    @Override
+    public ProjectAssignmentUser get_PAU_By_assignmentID(List<ProjectAssignmentUser> listPAU, String assignmentID) {
+        ProjectAssignmentUser PAU_Final = new ProjectAssignmentUser();
+        for(ProjectAssignmentUser element : listPAU){
+            if((element.getAssignment_ID() + "").equals(assignmentID)){
+                PAU_Final = element;
+                break;
+            }
+        }
+        return PAU_Final;
     }
 }

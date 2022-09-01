@@ -13,6 +13,8 @@ public interface UserRepositoryInterface {
 
     List<User_CRM> getAllUsers();
 
+    public void updateUserByID(User_CRM user, int userID);
+
     void addUser(User_CRM userCRM);
 
     void removeUserById(int ID);

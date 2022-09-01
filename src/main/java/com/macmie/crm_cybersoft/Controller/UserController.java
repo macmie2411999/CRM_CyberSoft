@@ -81,7 +81,6 @@ public class UserController extends HttpServlet {
 
             case Constants.URL_USER_ADD:
                 // Set attributes and forward to View
-//                List<Assignment_CRM> listAssignmentsOfSelectedUser = assignmentServiceInterface.getAllAssignments();
                 request.setAttribute(Constants.LIST_AUR_DTO, aur_dto_serviceInterface.getAllAssignmentUserRole());
                 request.setAttribute(Constants.LIST_ROLES, roleServiceInterface.getAllRoles());
 
@@ -92,11 +91,9 @@ public class UserController extends HttpServlet {
 
                 // Get User ID from request
                 userID = Integer.valueOf(request.getParameter(Constants.JUST_ID));
-                System.out.println("ID User: " + userID);
 
                 // Get all assignments of selected user
                 List<Assignment_CRM> listAssignmentsOfSelectedUser = assignmentServiceInterface.getAllAssignmentsByUserID(String.valueOf(userID));
-                System.out.println("Assignment of User: " + listAssignmentsOfSelectedUser.size());
 
                 // Set attributes and forward to View
                 // Check if user have any assignments
@@ -122,7 +119,7 @@ public class UserController extends HttpServlet {
                 request.setAttribute(Constants.LIST_AUR_DTO, aur_dto_serviceInterface.getAllAssignmentUserRole());
 
                 response.sendRedirect(request.getContextPath() + Constants.URL_USER);
-//                request.getRequestDispatcher(Constants.USER_TABLE_JSP).forward(request, response);
+
                 break;
 
             default:

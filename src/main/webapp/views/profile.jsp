@@ -1,3 +1,7 @@
+<%@ page import="com.macmie.crm_cybersoft.Pojo.User_CRM" %>
+<%@ page import="com.macmie.crm_cybersoft.Constants.Constants" %>
+<%@ page import="com.macmie.crm_cybersoft.DTO.ProjectAssignmentUser" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: macmie
@@ -7,7 +11,27 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<% String contextPath = request.getContextPath(); %>
+<%
+    String contextPath = request.getContextPath();
+    User_CRM user = (User_CRM) request.getAttribute(Constants.SELECTED_USE);
+    List<ProjectAssignmentUser> listAll_PAU = (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_PAU_PROJECT);
+    List<ProjectAssignmentUser> listCompleted_PAU = (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_COMPLETED_ASSIGNMENTS);
+    List<ProjectAssignmentUser> listProcessing_PAU= (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_PROCESSING_ASSIGNMENTS);
+    List<ProjectAssignmentUser> listStill_PAU = (List<ProjectAssignmentUser>) request.getAttribute(Constants.LIST_STILL_ASSIGNMENTS);
+    Integer numberAll_PAU = listAll_PAU.size();
+    Integer numberCompleted_PAU = listCompleted_PAU.size();
+    Integer numberProcessing_PAU = listProcessing_PAU.size();
+    Integer numberStill_PAU = listStill_PAU.size();
+    Integer Completed_PAU_Percentage=0;
+    Integer Processing_PAU_Percentage=0;
+    Integer Still_PAU_Percentage=0;
+
+    if(numberAll_PAU!=0){
+        Completed_PAU_Percentage = numberCompleted_PAU*100/numberAll_PAU;
+        Processing_PAU_Percentage = numberProcessing_PAU*100/numberAll_PAU;
+        Still_PAU_Percentage = numberStill_PAU*100/numberAll_PAU;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,8 +92,8 @@
                                     <a href="javascript:void(0)"><img
                                             src="<%= contextPath %>/assets/plugins/images/users/genu.jpg"
                                             class="thumb-lg img-circle" alt="img"></a>
-                                    <h4 class="text-white">Nguyễn Văn Tèo</h4>
-                                    <h5 class="text-white">info.teo@gmail.com</h5>
+                                    <h4 class="text-white"><%= user.getUser_Name()%>></h4>
+                                    <h5 class="text-white"><%= user.getUser_Email()%></h5>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +108,7 @@
                             <div class="white-box">
                                 <div class="col-in row">
                                     <div class="col-xs-12">
-                                        <h3 class="counter text-right m-t-15 text-danger">20%</h3>
+                                        <h3 class="counter text-right m-t-15 text-danger"><%= Still_PAU_Percentage %></h3>
                                     </div>
                                     <div class="col-xs-12">
                                         <i data-icon="E" class="linea-icon linea-basic"></i>
@@ -106,7 +130,7 @@
                             <div class="white-box">
                                 <div class="col-in row">
                                     <div class="col-xs-12">
-                                        <h3 class="counter text-right m-t-15 text-megna">50%</h3>
+                                        <h3 class="counter text-right m-t-15 text-megna"><%= Processing_PAU_Percentage %></h3>
                                     </div>
                                     <div class="col-xs-12">
                                         <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
@@ -128,7 +152,7 @@
                             <div class="white-box">
                                 <div class="col-in row">
                                     <div class="col-xs-12">
-                                        <h3 class="counter text-right m-t-15 text-primary">30%</h3>
+                                        <h3 class="counter text-right m-t-15 text-primary"><%= Completed_PAU_Percentage %></h3>
                                     </div>
                                     <div class="col-xs-12">
                                         <i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
@@ -171,18 +195,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <%
+                                    for(ProjectAssignmentUser element : listAll_PAU){
+                                %>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Phân tích dự án</td>
-                                    <td>Dự án CRM</td>
-                                    <td>22/05/2019</td>
-                                    <td>30/05/2019</td>
-                                    <td>Đã hoàn thành</td>
+                                    <td><%= element.getAssignment_ID() %></td>
+                                    <td><%= element.getAssignment_Name() %></td>
+                                    <td><%= element.getProject_Name() %></td>
+                                    <td><%= element.getAssignment_Start_Date() %></td>
+                                    <td><%= element.getAssignment_End_Date() %></td>
+                                    <td><%= element.getAssignment_Status() %></td>
                                     <td>
-                                        <a href="<%= contextPath %>/profile/edit" class="btn btn-primary">Cập nhật</a>
+                                        <a href="<%= contextPath %><%= Constants.URL_PROFILE_EDIT %>?id=<%= element.getAssignment_ID() %>" class="btn btn-sm btn-primary">Cập nhật</a>
                                     </td>
                                 </tr>
 
+                                <% } %>
                                 </tbody>
                             </table>
                         </div>

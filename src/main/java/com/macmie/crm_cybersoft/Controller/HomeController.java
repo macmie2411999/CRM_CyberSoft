@@ -31,12 +31,6 @@ public class HomeController extends HttpServlet {
         // Get lists of required assignments
         listAssignments = assignmentServiceInterface.getAllAssignments();
 
-        // Save listAssignments to Session
-//        HttpSession session = request.getSession();
-//        session.setMaxInactiveInterval(10000);
-//        session.setAttribute(Constants.SESSION_LIST_ASSIGNMENTS, listAssignments);
-
-
         // Get number of assignments in each list and set attributes to View
         request.setAttribute(Constants.ASSIGNMENT_COMPLETED,
                 assignmentServiceInterface.getNumbersOfSelectedAssignments(listAssignments, Constants.ASSIGNMENT_COMPLETED));

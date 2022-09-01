@@ -26,12 +26,6 @@ import java.util.List;
         Constants.URL_ASSIGNMENT_DELETE})
 public class AssignmentController extends HttpServlet {
 
-//    AssignmentRepositoryInterface assignmentRepositoryInterface = (AssignmentRepositoryInterface) new AssignmentRepository();
-//    AssignmentServiceInterface assignmentServiceInterface = (AssignmentServiceInterface) new AssignmentService(assignmentRepositoryInterface);
-
-//    PAU_DTO_RepositoryInterface pau_dto_repositoryInterface = (PAU_DTO_RepositoryInterface) new PAU_DTO_Repository();
-//    PAU_DTO_ServiceInterface pau_dto_serviceInterface;
-
     List<ProjectAssignmentUser> listProjectAssignmentUser;
     PAU_DTO_RepositoryInterface pau_dto_repositoryInterface;
     PAU_DTO_ServiceInterface pau_dto_serviceInterface;
@@ -69,18 +63,8 @@ public class AssignmentController extends HttpServlet {
         assignmentRepositoryInterface = (AssignmentRepositoryInterface) new AssignmentRepository( listAssignments);
         assignmentServiceInterface = (AssignmentServiceInterface) new AssignmentService(assignmentRepositoryInterface);
 
-
         // Get URL to forward/direct page
         String servletPath = request.getServletPath();
-
-//        ApplicationContext contextApplication = (ApplicationContext) request.getAttribute(Constants.CONTEXT);
-//        pau_dto_serviceInterface 	= (PAU_DTO_ServiceInterface) contextApplication.getBean(Constants.BEAN_PAU_DTO_REPOSITORY_INTERFACE);
-
-//        // Save listProjectAssignmentUser to Session
-//        HttpSession session = request.getSession();
-//        session.setMaxInactiveInterval(10000);
-//        session.setAttribute(Constants.LIST_PAU_DTO, listProjectAssignmentUser);
-
 
         switch (servletPath) {
             case Constants.URL_ASSIGNMENT:
@@ -119,9 +103,6 @@ public class AssignmentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        listProjectAssignmentUser = new ArrayList<ProjectAssignmentUser>();
-//        pau_dto_repositoryInterface = (PAU_DTO_RepositoryInterface) new PAU_DTO_Repository(listProjectAssignmentUser);
-//        pau_dto_serviceInterface = (PAU_DTO_ServiceInterface) new PAU_DTO_Service(pau_dto_repositoryInterface);
 
         // New Obs
         listAssignments = new ArrayList<Assignment_CRM>();
@@ -132,7 +113,6 @@ public class AssignmentController extends HttpServlet {
 
         // Get URL to forward/direct page
         String servletPath = request.getServletPath();
-
 
         switch (servletPath) {
             case Constants.URL_ASSIGNMENT_ADD:

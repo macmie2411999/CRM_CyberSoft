@@ -84,4 +84,9 @@ public class AssignmentService implements AssignmentServiceInterface {
     public void addNewAssignment(Assignment_CRM newAssignment) {
         assignmentRepositoryInterface.addNewAssignment(newAssignment);
     }
+
+    @Override
+    public void updateAssignmentByID(Assignment_CRM updateAssignment, int assignmentID) {
+        assignmentRepositoryInterface.updateAssignmentByID(updateAssignment, assignmentID);
+    }
 }

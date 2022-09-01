@@ -66,7 +66,7 @@ public class Constants {
 
     // ProfileController
     public static final String URL_PROFILE = "/profile";
-    public static final String URL_PROFILE_EDIT = "/profile/edit";
+    public static final String URL_PROFILE_EDIT = "/profile/taskEdit";
 
     // RoleController
     public static final String URL_ROLE = "/role";
@@ -124,6 +124,7 @@ public class Constants {
     public static final String ASSIGNMENT_COMPLETED = "Hoan Thanh";
     public static final String ASSIGNMENT_PROCESSING = "Dang Xu Ly";
     public static final String ASSIGNMENT_STILL = "Chua Bat Dau";
+    public static final String LIST_ASSIGNMENTS_STATUS = "Assignment_Status";
 
     // Message
     public static final String ERROR_QUERY_DATA_FROM_MYSQL = "Something Wrong With Query Database: ";
@@ -146,6 +147,8 @@ public class Constants {
 
     public static final String SELECTED_USE = "Selected_User";
     public static final String SELECTED_PROJECT = "Selected_User";
+    public static final String SELECTED_PAU = "Selected_PAU";
+    public static final String SELECTED_ASSIGNMENT_ID = "Selected_Assignment_ID";
     public static final String LIST_USER_ASSIGNMENTS = "List_User_Assignments";
     public static final String LIST_ASSIGNMENTS_PROJECT = "List_Assignments_Project";
     public static final String LIST_PAU_PROJECT = "List_PAU_Project";
